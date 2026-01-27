@@ -4,9 +4,11 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Calculator from './pages/Calculator';
 import About from './pages/About';
+import { supabase } from './lib/supabase';
 import './App.css';
 
 function App() {
+
   useEffect(() => {
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
