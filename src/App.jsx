@@ -6,6 +6,7 @@ import Calculator from './pages/Calculator';
 import About from './pages/About';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import History from './pages/History';
 import { supabase } from './lib/supabase';
 import './App.css';
 
@@ -69,6 +70,7 @@ function App() {
               path="/signup"
               element={session ? <Navigate to="/calculator" replace /> : <SignUp />}
             />
+            <Route path="/history" element={<History />} />
           </Routes>
         </main>
       </div>
