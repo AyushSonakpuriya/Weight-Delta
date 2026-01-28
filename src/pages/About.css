@@ -1,0 +1,148 @@
+/* Weight Delta - About Page Styles */
+
+.about__header {
+    margin-bottom: 56px;
+    max-width: 720px;
+}
+
+.about__title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 16px;
+}
+
+.about__intro {
+    font-size: 1.15rem;
+    color: var(--color-gray-dark);
+    line-height: 1.7;
+}
+
+.about__content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 80px;
+}
+
+.about__main {
+    max-width: 720px;
+}
+
+.about__section {
+    margin-bottom: 48px;
+}
+
+.about__section:last-child {
+    margin-bottom: 0;
+}
+
+.about__section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 16px;
+}
+
+.about__text {
+    font-size: 1rem;
+    color: var(--color-gray-text);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.about__text:last-child {
+    margin-bottom: 0;
+}
+
+.about__list {
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.about__list li {
+    font-size: 1rem;
+    color: var(--color-gray-text);
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.about__list li:last-child {
+    margin-bottom: 0;
+}
+
+.about__sidebar {
+    position: sticky;
+    top: 96px;
+    /* 64px navbar + 32px offset */
+}
+
+.about__quick-links {
+    background-color: var(--color-gray-light);
+    padding: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--color-gray-medium);
+}
+
+.about__quick-links-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-black);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.about__quick-links-list {
+    list-style: none;
+}
+
+.about__quick-links-list li {
+    margin-bottom: 12px;
+}
+
+.about__quick-links-list li:last-child {
+    margin-bottom: 0;
+}
+
+.about__quick-links-list a {
+    font-size: 0.925rem;
+    color: var(--color-gray-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.about__quick-links-list a:hover {
+    color: var(--color-black);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .about__content {
+        gap: 48px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .about__title {
+        font-size: 1.75rem;
+    }
+
+    .about__intro {
+        font-size: 1.05rem;
+    }
+
+    .about__content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .about__sidebar {
+        position: static;
+        order: -1;
+    }
+
+    .about__section-title {
+        font-size: 1.15rem;
+    }
+}
