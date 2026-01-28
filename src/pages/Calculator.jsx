@@ -1,11 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { fetchUserHistory } from '../services/history';
 import Form from '../components/Form';
 import Result from '../components/Result';
 import './Calculator.css';
 
 function Calculator() {
     const [result, setResult] = useState(null);
+
+    useEffect(() => {
+        fetchUserHistory()
+            .then((data) => {
+                console.log("HISTORY:", data);
+            })
+            .catch((err) => {
+                console.error("HISTORY ERROR:", err);
+            });
+    }, []);
 
     const handleCalculate = async (data) => {
         setResult(data);
@@ -15,7 +26,7 @@ function Calculator() {
             data: { session }
         } = await supabase.auth.getSession();
 
-        await supabase.from("calculations").insert({
+        const payload = {
             user_id: session.user.id,
             age: data.age,
             height: data.height,
@@ -23,7 +34,15 @@ function Calculator() {
             desired_weight: data.desiredWeight,
             duration: data.duration,
             daily_calories: data.dailyTarget
-        });
+        };
+
+        console.log("INSERT PAYLOAD:", payload);
+
+        const { data: insertData, error } = await supabase
+            .from("calculations")
+            .insert(payload);
+
+        console.log("INSERT ERROR:", error);
     };
 
     return (
