@@ -5,5 +5,7 @@
 }
 
 .main {
-  min-height: 100vh;
+  min-height: calc(100vh - var(--navbar-height, 64px));
+  display: flex;
+  flex-direction: column;
 }

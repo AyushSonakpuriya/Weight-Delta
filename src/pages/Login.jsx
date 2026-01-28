@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -7,7 +8,6 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    // Auto-redirect if already logged in
     useEffect(() => {
         supabase.auth.getSession().then(({ data }) => {
             if (data.session) {
@@ -33,53 +33,167 @@ export default function Login() {
         setLoading(false);
     };
 
+    const inputStyle = {
+        width: '100%',
+        padding: '0.875rem 1rem',
+        borderRadius: '12px',
+        border: '1px solid #ddd',
+        background: 'rgba(255, 255, 255, 0.9)',
+        color: '#1a1a1a',
+        fontSize: '16px', // Prevents zoom on iOS
+        outline: 'none',
+        transition: 'border-color 0.2s, box-shadow 0.2s',
+        boxSizing: 'border-box'
+    };
+
     return (
-        <div className="min-h-screen bg-white flex items-center justify-center px-4">
-            <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-8 shadow-sm">
-                <div className="mb-6 text-center">
-                    <h1 className="text-2xl font-semibold text-gray-900">
-                        Welcome back
-                    </h1>
-                    <p className="text-sm text-gray-500">
-                        Enter your credentials to continue
+        <div style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 'clamp(1rem, 5vw, 2rem)',
+            minHeight: '100%'
+        }}>
+            {/* Liquid Glass Box */}
+            <div style={{
+                width: '100%',
+                maxWidth: '420px',
+                padding: 'clamp(1.5rem, 5vw, 2.5rem)',
+                borderRadius: 'clamp(20px, 4vw, 28px)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%)',
+                backdropFilter: 'blur(40px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+                border: '1.5px solid rgba(255, 255, 255, 0.8)',
+                boxShadow: `
+                    0 8px 32px rgba(0, 0, 0, 0.12),
+                    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+                    0 32px 64px -20px rgba(0, 0, 0, 0.15),
+                    0 -1px 0 rgba(255, 255, 255, 0.8) inset
+                `
+            }}>
+                {/* Logo */}
+                <div style={{ textAlign: 'center', marginBottom: 'clamp(1.25rem, 4vw, 2rem)' }}>
+                    <h1 style={{
+                        fontSize: 'clamp(1.5rem, 5vw, 1.75rem)',
+                        fontWeight: '600',
+                        color: '#1a1a1a',
+                        marginBottom: '0.5rem',
+                        letterSpacing: '-0.02em'
+                    }}>Weight Delta</h1>
+                    <p style={{ color: '#666', fontSize: 'clamp(0.8rem, 3vw, 0.875rem)' }}>
+                        Sign in to continue
                     </p>
                 </div>
 
-                <form onSubmit={handleLogin} className="space-y-4">
-                    <div>
-                        <label className="text-sm text-gray-600">Email</label>
+                <form onSubmit={handleLogin}>
+                    <div style={{ marginBottom: '1.25rem' }}>
+                        <label style={{
+                            display: 'block',
+                            color: '#333',
+                            fontSize: '0.875rem',
+                            marginBottom: '0.5rem',
+                            fontWeight: '500'
+                        }}>Email</label>
                         <input
                             type="email"
                             required
-                            className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-black focus:outline-none"
+                            placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            style={inputStyle}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = '#1a1a1a';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(26, 26, 26, 0.1)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = '#ddd';
+                                e.target.style.boxShadow = 'none';
+                            }}
                         />
                     </div>
 
-                    <div>
-                        <label className="text-sm text-gray-600">Password</label>
+                    <div style={{ marginBottom: '1.5rem' }}>
+                        <label style={{
+                            display: 'block',
+                            color: '#333',
+                            fontSize: '0.875rem',
+                            marginBottom: '0.5rem',
+                            fontWeight: '500'
+                        }}>Password</label>
                         <input
                             type="password"
                             required
-                            className="mt-1 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 focus:border-black focus:outline-none"
+                            placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            style={inputStyle}
+                            onFocus={(e) => {
+                                e.target.style.borderColor = '#1a1a1a';
+                                e.target.style.boxShadow = '0 0 0 3px rgba(26, 26, 26, 0.1)';
+                            }}
+                            onBlur={(e) => {
+                                e.target.style.borderColor = '#ddd';
+                                e.target.style.boxShadow = 'none';
+                            }}
                         />
                     </div>
 
                     {error && (
-                        <p className="text-sm text-red-600">{error}</p>
+                        <p style={{
+                            color: '#dc2626',
+                            fontSize: '0.875rem',
+                            marginBottom: '1rem',
+                            padding: '0.75rem',
+                            borderRadius: '8px',
+                            background: 'rgba(220, 38, 38, 0.08)',
+                            border: '1px solid rgba(220, 38, 38, 0.2)'
+                        }}>{error}</p>
                     )}
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full rounded-md bg-black py-2 text-sm font-medium text-white hover:bg-gray-800 disabled:opacity-50"
+                        style={{
+                            width: '100%',
+                            padding: '0.875rem',
+                            borderRadius: '12px',
+                            border: 'none',
+                            background: '#1a1a1a',
+                            color: 'white',
+                            fontSize: '1rem',
+                            fontWeight: '600',
+                            cursor: loading ? 'not-allowed' : 'pointer',
+                            opacity: loading ? 0.6 : 1,
+                            transition: 'transform 0.2s, box-shadow 0.2s, background 0.2s',
+                            WebkitTapHighlightColor: 'transparent'
+                        }}
+                        onMouseEnter={(e) => {
+                            if (!loading) {
+                                e.target.style.background = '#333';
+                            }
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.background = '#1a1a1a';
+                        }}
                     >
                         {loading ? "Signing in..." : "Sign in"}
                     </button>
                 </form>
+
+                <p style={{
+                    textAlign: 'center',
+                    marginTop: '1.5rem',
+                    color: '#666',
+                    fontSize: '0.875rem'
+                }}>
+                    Don't have an account?{" "}
+                    <Link to="/signup" style={{
+                        color: '#1a1a1a',
+                        textDecoration: 'none',
+                        fontWeight: '600'
+                    }}>Sign up</Link>
+                </p>
             </div>
         </div>
     );

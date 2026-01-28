@@ -1,14 +1,15 @@
 import { supabase } from "../lib/supabase";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 
 
 export default function Navbar({ session }) {
+  const navigate = useNavigate();
+
   const handleLogout = async () => {
-    console.log('Logout clicked');
-    const { error } = await supabase.auth.signOut();
-    console.log('Logout result - error:', error);
+    await supabase.auth.signOut();
+    navigate("/login");
   };
 
   return (

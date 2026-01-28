@@ -12,6 +12,7 @@ import './App.css';
 
 function App() {
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const cursor = document.createElement("div");
@@ -33,22 +34,28 @@ function App() {
 
   // Session management - check on load and listen for changes
   useEffect(() => {
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      console.log('Current Supabase session:', session);
-    };
-
-    checkSession();
-
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      console.log('Auth state changed:', event, session);
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
+
+    return () => listener.subscription.unsubscribe();
   }, []);
+
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <BrowserRouter>
@@ -70,7 +77,10 @@ function App() {
               path="/signup"
               element={session ? <Navigate to="/calculator" replace /> : <SignUp />}
             />
-            <Route path="/history" element={<History />} />
+            <Route
+              path="/history"
+              element={session ? <History /> : <Navigate to="/login" replace />}
+            />
           </Routes>
         </main>
       </div>
