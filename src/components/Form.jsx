@@ -46,6 +46,8 @@ function Form({ onCalculate }) {
 
         onCalculate({
             name: formData.name,
+            age: parseFloat(age),
+            height: parseFloat(height),
             currentWeight: parseFloat(currentWeight),
             desiredWeight: parseFloat(desiredWeight),
             duration: parseInt(duration),

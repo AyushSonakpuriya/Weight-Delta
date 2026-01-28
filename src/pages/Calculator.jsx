@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { supabase } from '../lib/supabase';
 import Form from '../components/Form';
 import Result from '../components/Result';
 import './Calculator.css';
@@ -6,8 +7,23 @@ import './Calculator.css';
 function Calculator() {
     const [result, setResult] = useState(null);
 
-    const handleCalculate = (data) => {
+    const handleCalculate = async (data) => {
         setResult(data);
+
+        // Save calculation to Supabase
+        const {
+            data: { session }
+        } = await supabase.auth.getSession();
+
+        await supabase.from("calculations").insert({
+            user_id: session.user.id,
+            age: data.age,
+            height: data.height,
+            current_weight: data.currentWeight,
+            desired_weight: data.desiredWeight,
+            duration: data.duration,
+            daily_calories: data.dailyTarget
+        });
     };
 
     return (
