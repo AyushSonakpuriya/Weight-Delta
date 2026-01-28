@@ -29,10 +29,11 @@ function App() {
     };
   }, []);
 
-  // Session verification - logs current auth session
+  // Session management - check on load and listen for changes
   useEffect(() => {
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
       console.log('Current Supabase session:', session);
     };
 
@@ -40,6 +41,7 @@ function App() {
 
     // Listen for auth state changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setSession(session);
       console.log('Auth state changed:', event, session);
     });
 
