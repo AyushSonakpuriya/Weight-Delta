@@ -3,33 +3,34 @@ import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
 import "../Login.css";
 
-function Login() {
+function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
-    const handleLogin = async (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         setError("");
-        console.log('Login attempt with:', email);
+        setMessage("");
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
         });
 
-        console.log('Login result - data:', data, 'error:', error);
-
         if (error) {
             setError(error.message);
+        } else {
+            setMessage("Check your email for the confirmation link!");
         }
     };
 
     return (
         <div className="login">
-            <h1>Login</h1>
+            <h1>Sign Up</h1>
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSignUp}>
                 <div>
                     <input
                         type="email"
@@ -43,23 +44,25 @@ function Login() {
                 <div>
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Password (min 6 characters)"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        minLength={6}
                         required
                     />
                 </div>
 
-                <button type="submit">Login</button>
+                <button type="submit">Sign Up</button>
 
                 {error && <p style={{ color: "red" }}>{error}</p>}
+                {message && <p style={{ color: "green" }}>{message}</p>}
             </form>
 
             <p style={{ marginTop: "16px" }}>
-                Don't have an account? <Link to="/signup">Sign Up</Link>
+                Already have an account? <Link to="/login">Login</Link>
             </p>
         </div>
     );
 }
 
-export default Login;
+export default SignUp;

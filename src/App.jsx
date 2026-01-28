@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Calculator from './pages/Calculator';
 import About from './pages/About';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 import { supabase } from './lib/supabase';
 import './App.css';
 
@@ -51,7 +52,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        <Navbar />
+        <Navbar session={session} />
         <main className="main">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -63,6 +64,10 @@ function App() {
             <Route
               path="/login"
               element={session ? <Navigate to="/calculator" replace /> : <Login />}
+            />
+            <Route
+              path="/signup"
+              element={session ? <Navigate to="/calculator" replace /> : <SignUp />}
             />
           </Routes>
         </main>

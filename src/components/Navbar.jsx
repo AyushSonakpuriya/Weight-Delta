@@ -4,9 +4,11 @@ import "./Navbar.css";
 
 
 
-export default function Navbar() {
+export default function Navbar({ session }) {
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    console.log('Logout clicked');
+    const { error } = await supabase.auth.signOut();
+    console.log('Logout result - error:', error);
   };
 
   return (
@@ -21,7 +23,11 @@ export default function Navbar() {
         <NavLink to="/about">
           About
         </NavLink>
-        <button onClick={handleLogout}>Logout</button>
+        {session ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
       </nav>
     </header>
   );
