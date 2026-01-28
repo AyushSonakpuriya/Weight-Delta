@@ -21,7 +21,6 @@ function Calculator() {
     const handleCalculate = async (data) => {
         setResult(data);
 
-        // Save calculation to Supabase
         const {
             data: { session }
         } = await supabase.auth.getSession();
@@ -29,12 +28,13 @@ function Calculator() {
         const payload = {
             user_id: session.user.id,
             age: data.age,
-            height: data.height,
+            height_cm: data.height,
             current_weight: data.currentWeight,
             desired_weight: data.desiredWeight,
-            duration: data.duration,
-            daily_calories: data.dailyTarget
+            duration_weeks: data.duration,
+            daily_calories: data.dailyTarget,
         };
+
 
         console.log("INSERT PAYLOAD:", payload);
 
