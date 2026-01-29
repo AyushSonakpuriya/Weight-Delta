@@ -44,6 +44,26 @@
     font-weight: 500;
 }
 
+.navbar button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    padding: 0;
+
+    /* Mobile fixes */
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.navbar button:hover {
+    color: #000;
+}
+
 
 @media (max-width: 768px) {
     .navbar {
