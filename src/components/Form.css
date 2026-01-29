@@ -92,6 +92,17 @@
     opacity: 0.8;
 }
 
+.form__error {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
 @media (max-width: 768px) {
     .calculator-form {
         padding: 28px;

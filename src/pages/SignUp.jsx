@@ -31,7 +31,12 @@ function SignUp() {
         if (error) {
             setError(error.message);
         } else {
-            setMessage("Check your email for the confirmation link!");
+            setMessage(
+                <>
+                    Check your email for the confirmation link! <br />
+                    <strong>Kindly check the spam folder of your mail.</strong>
+                </>
+            );
         }
 
         setLoading(false);

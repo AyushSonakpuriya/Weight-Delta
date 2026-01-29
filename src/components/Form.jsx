@@ -12,6 +12,39 @@ function Form({ onCalculate }) {
         desiredWeight: '',
         duration: '8'
     });
+    const [error, setError] = useState('');
+
+    const validateWeightPlan = (data) => {
+        const current = parseFloat(data.currentWeight);
+        const desired = parseFloat(data.desiredWeight);
+        const weeks = parseInt(data.duration);
+
+        // 1. Weight Input Validation (30-300kg)
+        if (current < 30 || current > 300 || desired < 30 || desired > 300) {
+            return "Weight must be between 30 kg and 300 kg.";
+        }
+
+        // 2. Logical Validation (Current !== Desired)
+        if (current === desired) {
+            return "Current and target weight cannot be the same.";
+        }
+
+        // 3. Duration Limits (4-52 weeks) 
+        // Note: HTML select handles this but logic should match requirements
+        if (weeks < 4 || weeks > 52) {
+            return "Duration must be between 4 and 52 weeks.";
+        }
+
+        // 4. Weight Change Rate Limits (Hard cap 1.25kg/week)
+        const weightChange = Math.abs(desired - current);
+        const ratePerWeek = weightChange / weeks;
+
+        if (ratePerWeek > 2.0) {
+            return `Target weight change is too aggressive. Maximum rate is 2 kg per week (Selected: ${ratePerWeek.toFixed(2)} kg/week).`;
+        }
+
+        return null; // Valid
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,6 +56,13 @@ function Form({ onCalculate }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError('');
+
+        const validationError = validateWeightPlan(formData);
+        if (validationError) {
+            setError(validationError);
+            return;
+        }
 
         const { age, gender, height, currentWeight, desiredWeight, duration } = formData;
 
@@ -199,6 +239,12 @@ function Form({ onCalculate }) {
                     <option value="16">16 weeks</option>
                 </select>
             </div>
+
+            {error && (
+                <div className="form__error">
+                    {error}
+                </div>
+            )}
 
             <button type="submit" className="form__submit">
                 Calculate Calorie Target

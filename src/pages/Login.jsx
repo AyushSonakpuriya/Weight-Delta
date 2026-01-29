@@ -56,7 +56,12 @@ export default function Login() {
         if (error) {
             setError(error.message);
         } else {
-            setMessage("Password reset email sent! Check your inbox.");
+            setMessage(
+                <>
+                    Password reset email sent! Check your inbox. <br />
+                    <strong>Kindly check the spam folder of your mail.</strong>
+                </>
+            );
         }
         setLoading(false);
     };
