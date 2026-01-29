@@ -62,7 +62,6 @@ function SignUp() {
             minHeight: '100%',
             gap: isDesktop ? '5rem' : '0'
         }}>
-            {/* Left Side Illustration - Desktop Only */}
             {isDesktop && (
                 <div style={{
                     flex: '0 0 auto',
@@ -82,7 +81,6 @@ function SignUp() {
                 </div>
             )}
 
-            {/* Liquid Glass Box */}
             <div style={{
                 width: '100%',
                 maxWidth: '420px',
@@ -109,7 +107,6 @@ function SignUp() {
                 position: 'relative',
                 overflow: 'hidden'
             }}>
-                {/* Glass Shine Effect */}
                 <div style={{
                     position: 'absolute',
                     top: 0,
@@ -120,7 +117,6 @@ function SignUp() {
                     borderRadius: 'clamp(20px, 4vw, 28px) clamp(20px, 4vw, 28px) 0 0',
                     pointerEvents: 'none'
                 }} />
-                {/* Logo */}
                 <div style={{ textAlign: 'center', marginBottom: 'clamp(1.25rem, 4vw, 2rem)' }}>
                     <h1 style={{
                         fontSize: 'clamp(1.5rem, 5vw, 1.75rem)',

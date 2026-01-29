@@ -26,7 +26,6 @@ function Form({ onCalculate }) {
 
         const { age, gender, height, currentWeight, desiredWeight, duration } = formData;
 
-        // Calculate BMR using Harris-Benedict equation
         let bmr;
         if (gender === 'male') {
             bmr = 88.362 + (13.397 * parseFloat(currentWeight)) + (4.799 * parseFloat(height)) - (5.677 * parseFloat(age));
@@ -34,13 +33,11 @@ function Form({ onCalculate }) {
             bmr = 447.593 + (9.247 * parseFloat(currentWeight)) + (3.098 * parseFloat(height)) - (4.330 * parseFloat(age));
         }
 
-        // Calculate daily calorie adjustment
         const weightChange = parseFloat(desiredWeight) - parseFloat(currentWeight);
         const totalCalorieChange = weightChange * 7700;
         const days = parseInt(duration) * 7;
         const dailyAdjustment = Math.round(totalCalorieChange / days);
 
-        // TDEE estimate (BMR * 1.55 for moderate activity)
         const tdee = Math.round(bmr * 1.55);
         const dailyTarget = tdee + dailyAdjustment;
 

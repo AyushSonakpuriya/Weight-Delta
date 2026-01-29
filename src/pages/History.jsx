@@ -7,7 +7,6 @@ export default function History() {
 
     useEffect(() => {
         const fetchHistory = async () => {
-            // Step 1: Verify session exists
             const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
             console.log("=== DATA FLOW VERIFICATION ===");
@@ -20,12 +19,10 @@ export default function History() {
                 return;
             }
 
-            // Step 2: Log the user ID
             console.log("2. User ID:", session.user.id);
             console.log("   Expected: 1c9a0a61-86db-4e6b-95c1-8c7128dc4bd6");
             console.log("   Match:", session.user.id === "1c9a0a61-86db-4e6b-95c1-8c7128dc4bd6");
 
-            // Step 3: Fetch all rows visible to this user (RLS applied automatically)
             const { data, error } = await supabase
                 .from("calculations")
                 .select("*")

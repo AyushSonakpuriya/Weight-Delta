@@ -32,7 +32,6 @@ function App() {
     };
   }, []);
 
-  // Session management - check on load and listen for changes
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
@@ -48,7 +47,6 @@ function App() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  // Show loading while checking auth
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
