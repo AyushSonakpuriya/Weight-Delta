@@ -8,8 +8,11 @@ function About() {
                 <header className="about__header">
                     <h1 className="about__title">About Weight Delta</h1>
                     <p className="about__intro">
-                        A straightforward calorie estimation tool built on metabolic equations
-                        and basic thermodynamics.
+                        I created Weight Delta with a simple purpose – to help my parents,
+                        especially my dad, on their weight loss journey. What started as a
+                        personal tool to calculate daily calorie goals has grown into something
+                        I hope can help others too. Built with love and powered by proven
+                        metabolic equations.
                     </p>
                 </header>
 
@@ -75,6 +78,17 @@ function About() {
                         </nav>
                     </aside>
                 </div>
+
+                <footer style={{
+                    textAlign: 'center',
+                    marginTop: '64px',
+                    paddingTop: '32px',
+                    borderTop: '1px solid var(--color-gray-medium)',
+                    color: 'var(--color-gray-dark)',
+                    fontSize: '0.95rem'
+                }}>
+                    made with ❤️ by Ayush Sonakpuriya
+                </footer>
             </div>
         </section>
     );

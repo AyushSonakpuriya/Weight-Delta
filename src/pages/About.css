@@ -72,8 +72,11 @@
 
 .about__sidebar {
     position: sticky;
-    top: 96px;
-    /* 64px navbar + 32px offset */
+    top: 80px;
+    bottom: 32px;
+    max-height: calc(100vh - 112px);
+    overflow-y: auto;
+    /* 64px navbar + 16px offset */
 }
 
 .about__quick-links {
