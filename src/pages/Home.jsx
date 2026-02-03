@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import MagnetButton from '../components/MagnetButton';
+import SplitText from '../components/SplitText';
 
 function Home() {
     const navigate = useNavigate();
@@ -10,7 +11,20 @@ function Home() {
             <section className="hero section section--hero">
                 <div className="container">
                     <div className="hero__content">
-                        <h1 className="hero__title">Weight Delta</h1>
+                        <SplitText
+                            text="Weight Delta"
+                            className="hero__title"
+                            tag="h1"
+                            delay={50}
+                            duration={0.8}
+                            ease="power3.out"
+                            splitType="chars"
+                            from={{ opacity: 0, y: 40 }}
+                            to={{ opacity: 1, y: 0 }}
+                            threshold={0.1}
+                            rootMargin="-50px"
+                            textAlign="center"
+                        />
                         <p className="hero__subtitle">
                             Calculate the daily calorie adjustment you need to reach your weight goal.
                             Based on established metabolic equations, not guesswork.
