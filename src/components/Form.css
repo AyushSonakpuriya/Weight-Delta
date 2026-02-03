@@ -3,6 +3,32 @@
     border: 1px solid var(--color-gray-medium);
     padding: 40px;
     border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glare effect for form */
+.calculator-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 100%);
+    transform: skewX(-25deg);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+
+.calculator-form:hover::before {
+    opacity: 1;
+    animation: card-glare-sweep 0.7s ease-in-out;
 }
 
 .form__row {

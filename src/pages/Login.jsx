@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
+import MagnetButton from "../components/MagnetButton";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -110,7 +111,7 @@ export default function Login() {
                 </div>
             )}
 
-            <div style={{
+            <div className="glare-card" style={{
                 width: '100%',
                 maxWidth: '420px',
                 padding: 'clamp(1.5rem, 5vw, 2.5rem)',
@@ -287,34 +288,13 @@ export default function Login() {
                         }}>{message}</p>
                     )}
 
-                    <button
+                    <MagnetButton
                         type="submit"
                         disabled={loading}
-                        style={{
-                            width: '100%',
-                            padding: '0.875rem',
-                            borderRadius: '12px',
-                            border: 'none',
-                            background: '#1a1a1a',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            opacity: loading ? 0.6 : 1,
-                            transition: 'transform 0.2s, box-shadow 0.2s, background 0.2s',
-                            WebkitTapHighlightColor: 'transparent'
-                        }}
-                        onMouseEnter={(e) => {
-                            if (!loading) {
-                                e.target.style.background = '#333';
-                            }
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.background = '#1a1a1a';
-                        }}
+                        glareEnabled={true}
                     >
                         {loading ? "Signing in..." : "Sign in"}
-                    </button>
+                    </MagnetButton>
                 </form>
 
                 <p style={{

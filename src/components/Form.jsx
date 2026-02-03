@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './Form.css';
+import MagnetButton from './MagnetButton';
 
 function Form({ onCalculate }) {
     const [formData, setFormData] = useState({
@@ -246,9 +247,9 @@ function Form({ onCalculate }) {
                 </div>
             )}
 
-            <button type="submit" className="form__submit">
+            <MagnetButton type="submit" className="form__submit">
                 Calculate Calorie Target
-            </button>
+            </MagnetButton>
         </form>
     );
 }

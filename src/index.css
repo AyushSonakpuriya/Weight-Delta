@@ -121,3 +121,67 @@ textarea {
 
   transform: translate(-50%, -50%);
 }
+
+/* ===== GLOBAL CLICK SPARK EFFECT ===== */
+.global-spark {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  pointer-events: none;
+  z-index: 9998;
+  animation: global-spark-burst 0.5s ease-out forwards;
+  box-shadow: 0 0 6px 2px rgba(26, 26, 26, 0.6);
+}
+
+@keyframes global-spark-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0);
+  }
+}
+
+/* ===== GLARE CARD EFFECT ===== */
+.glare-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 100%);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.glare-card:hover::before {
+  opacity: 1;
+  animation: card-glare-sweep 0.7s ease-in-out;
+}
+
+@keyframes card-glare-sweep {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}

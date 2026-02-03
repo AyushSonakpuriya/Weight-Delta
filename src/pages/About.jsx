@@ -67,7 +67,7 @@ function About() {
                     </main>
 
                     <aside className="about__sidebar">
-                        <nav className="about__quick-links">
+                        <nav className="about__quick-links glare-card">
                             <h3 className="about__quick-links-title">On This Page</h3>
                             <ul className="about__quick-links-list">
                                 <li><a href="#purpose">Purpose</a></li>

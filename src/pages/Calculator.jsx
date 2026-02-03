@@ -62,7 +62,7 @@ function Calculator() {
                     </div>
 
                     <aside className="calculator__sidebar">
-                        <div className="calculator__info">
+                        <div className="calculator__info glare-card">
                             <h3 className="calculator__info-title">About This Calculator</h3>
                             <p className="calculator__info-text">
                                 This tool uses the Harris-Benedict equation to estimate your Basal Metabolic Rate (BMR),

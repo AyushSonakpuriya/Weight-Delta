@@ -1,0 +1,107 @@
+/* MagnetButton.css - Magnet effect, click spark, and glare hover */
+
+.magnet-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem;
+    border-radius: 12px;
+    border: none;
+    background: #1a1a1a;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease-out, box-shadow 0.2s, background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.magnet-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.magnet-button:not(:disabled):hover {
+    background: #333;
+}
+
+.magnet-button:not(:disabled):active {
+    transform: scale(0.98);
+}
+
+/* Glare effect overlay */
+.magnet-button__glare {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            transparent 100%);
+    transform: skewX(-25deg);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.magnet-button.glare-enabled:hover .magnet-button__glare {
+    opacity: 1;
+    animation: glare-sweep 0.8s ease-in-out;
+}
+
+@keyframes glare-sweep {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 150%;
+    }
+}
+
+/* Spark container */
+.magnet-button__sparks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* Individual spark particle */
+.spark {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    pointer-events: none;
+    animation: spark-burst 0.6s ease-out forwards;
+    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes spark-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) scale(0);
+    }
+}
+
+/* Button content wrapper to prevent z-index issues */
+.magnet-button__content {
+    position: relative;
+    z-index: 1;
+}

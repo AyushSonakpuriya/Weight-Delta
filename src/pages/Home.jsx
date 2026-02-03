@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import MagnetButton from '../components/MagnetButton';
 
 function Home() {
+    const navigate = useNavigate();
+
     return (
         <>
             <section className="hero section section--hero">
@@ -12,9 +15,13 @@ function Home() {
                             Calculate the daily calorie adjustment you need to reach your weight goal.
                             Based on established metabolic equations, not guesswork.
                         </p>
-                        <Link to="/calculator" className="hero__cta">
+                        <MagnetButton
+                            className="hero__cta"
+                            glareEnabled={true}
+                            onClick={() => navigate('/calculator')}
+                        >
                             Open Calculator
-                        </Link>
+                        </MagnetButton>
                     </div>
                 </div>
             </section>
@@ -26,7 +33,7 @@ function Home() {
                         <p className="features__subtitle">Three steps to your personalized calorie target.</p>
                     </header>
                     <div className="features__grid">
-                        <article className="feature-card">
+                        <article className="feature-card glare-card">
                             <span className="feature-card__number">01</span>
                             <h3 className="feature-card__title">Enter Your Metrics</h3>
                             <p className="feature-card__description">
@@ -34,7 +41,7 @@ function Home() {
                                 The calculator needs accurate data for accurate results.
                             </p>
                         </article>
-                        <article className="feature-card">
+                        <article className="feature-card glare-card">
                             <span className="feature-card__number">02</span>
                             <h3 className="feature-card__title">Set Your Timeline</h3>
                             <p className="feature-card__description">
@@ -42,7 +49,7 @@ function Home() {
                                 Shorter timelines require larger daily adjustments.
                             </p>
                         </article>
-                        <article className="feature-card">
+                        <article className="feature-card glare-card">
                             <span className="feature-card__number">03</span>
                             <h3 className="feature-card__title">Get Your Target</h3>
                             <p className="feature-card__description">
