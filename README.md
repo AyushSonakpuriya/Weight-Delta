@@ -1,6 +1,6 @@
 # Weight Delta 🏋️
 
-A calorie calculator web app built to help my parents, especially my dad, on their weight loss journey. What started as a personal tool has grown into something I hope can help others too.
+A calorie calculator web app built to help my parents, on their weight loss journey. What started as a personal tool has grown into something I hope can help others too.
 
 ## ✨ Features
 
