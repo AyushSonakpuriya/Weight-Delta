@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import PillNav from './components/PillNav';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Calculator from './pages/Calculator';
 import About from './pages/About';
@@ -11,37 +11,10 @@ import { supabase } from './lib/supabase';
 import './App.css';
 
 // Wrapper component to access location
-function AppContent({ session, onLogout }) {
-  const location = useLocation();
-
-  const navItems = session
-    ? [
-      { label: 'Home', href: '/' },
-      { label: 'Calculator', href: '/calculator' },
-      { label: 'History', href: '/history' },
-      { label: 'About', href: '/about' },
-      { label: 'Logout', href: '#logout', onClick: onLogout }
-    ]
-    : [
-      { label: 'Home', href: '/' },
-      { label: 'About', href: '/about' },
-      { label: 'Login', href: '/login' },
-      { label: 'Sign Up', href: '/signup' }
-    ];
-
+function AppContent({ session }) {
   return (
     <div className="app">
-      <PillNav
-        logo="/scale.svg"
-        logoAlt="Weight Delta"
-        items={navItems}
-        activeHref={location.pathname}
-        baseColor="#000000"
-        pillColor="#ffffff"
-        hoveredPillTextColor="#ffffff"
-        pillTextColor="#000000"
-        initialLoadAnimation
-      />
+      <Navbar session={session} />
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -136,9 +109,6 @@ function App() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
 
   if (loading) {
     return (
@@ -150,7 +120,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContent session={session} onLogout={handleLogout} />
+      <AppContent session={session} />
     </BrowserRouter>
   );
 }

@@ -1,12 +1,19 @@
 import { Link } from 'react-router-dom';
 import './About.css';
+import BlurText from '../components/BlurText';
 
 function About() {
     return (
         <section className="about section">
             <div className="container">
                 <header className="about__header">
-                    <h1 className="about__title">About Weight Delta</h1>
+                    <BlurText
+                        text="About Weight Delta"
+                        delay={200}
+                        animateBy="words"
+                        direction="top"
+                        className="about__title"
+                    />
                     <p className="about__intro">
                         I created Weight Delta with a simple purpose – to help my parents,
                         especially my dad, on their weight loss journey. What started as a

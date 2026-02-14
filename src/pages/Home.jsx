@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import MagnetButton from '../components/MagnetButton';
 import SplitText from '../components/SplitText';
+import BlurText from '../components/BlurText';
 
 function Home() {
     const navigate = useNavigate();
@@ -43,7 +44,13 @@ function Home() {
             <section className="features section">
                 <div className="container">
                     <header className="features__header">
-                        <h2 className="features__title">How It Works</h2>
+                        <BlurText
+                            text="How It Works"
+                            delay={200}
+                            animateBy="words"
+                            direction="top"
+                            className="features__title"
+                        />
                         <p className="features__subtitle">Three steps to your personalized calorie target.</p>
                     </header>
                     <div className="features__grid">

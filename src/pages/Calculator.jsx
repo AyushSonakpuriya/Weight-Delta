@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase';
 import { fetchUserHistory } from '../services/history';
 import Form from '../components/Form';
 import Result from '../components/Result';
+import BlurText from '../components/BlurText';
 import './Calculator.css';
 
 function Calculator() {
@@ -49,7 +50,13 @@ function Calculator() {
         <section className="calculator section">
             <div className="container">
                 <header className="calculator__header">
-                    <h1 className="calculator__title">Calorie Goal Calculator</h1>
+                    <BlurText
+                        text="Calorie Goal Calculator"
+                        delay={200}
+                        animateBy="words"
+                        direction="top"
+                        className="calculator__title"
+                    />
                     <p className="calculator__description">
                         Enter your details below to calculate the daily calorie intake needed to reach your target weight.
                     </p>
