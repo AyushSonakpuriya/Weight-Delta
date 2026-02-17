@@ -51,13 +51,32 @@
 
 /* ===== NAV LINKS ===== */
 .navbar {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
+/* ===== SLIDING HIGHLIGHT ===== */
+.navbar__highlight {
+    position: absolute;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.07);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        top 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        height 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease;
+    z-index: 0;
+}
+
 .navbar a,
 .navbar button {
+    position: relative;
+    z-index: 1;
     padding: 6px 14px;
     border-radius: 9999px;
     font-size: 14px;
@@ -66,18 +85,16 @@
     text-decoration: none;
     background: none;
     border: none;
-    transition: background 0.2s, color 0.2s;
+    transition: color 0.25s ease;
     white-space: nowrap;
 }
 
 .navbar a:hover,
 .navbar button:hover {
-    background: rgba(0, 0, 0, 0.07);
     color: var(--color-black);
 }
 
 .navbar a.active {
-    background: rgba(0, 0, 0, 0.08);
     color: var(--color-black);
     font-weight: 600;
 }
@@ -89,6 +106,8 @@
     background: rgba(0, 0, 0, 0.15);
     margin: 0 2px;
     flex-shrink: 0;
+    position: relative;
+    z-index: 1;
 }
 
 /* ===== THEME TOGGLE ===== */
@@ -102,12 +121,12 @@
     background: none !important;
     border: none !important;
     color: var(--color-gray-dark) !important;
-    transition: background 0.2s, color 0.2s !important;
+    transition: color 0.25s ease !important;
 }
 
 .theme-toggle:hover {
-    background: rgba(0, 0, 0, 0.07) !important;
     color: var(--color-black) !important;
+    background: none !important;
 }
 
 /* ===== DARK MODE OVERRIDES ===== */
@@ -118,6 +137,10 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
+.dark .navbar__highlight {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 .dark .navbar a,
 .dark .navbar button {
     color: #aaaaaa;
@@ -125,12 +148,10 @@
 
 .dark .navbar a:hover,
 .dark .navbar button:hover {
-    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
 }
 
 .dark .navbar a.active {
-    background: rgba(255, 255, 255, 0.12);
     color: #ffffff;
 }
 
@@ -143,7 +164,6 @@
 }
 
 .dark .theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
     color: #ffffff !important;
 }
 

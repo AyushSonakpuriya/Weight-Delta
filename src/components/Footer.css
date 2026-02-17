@@ -1,0 +1,218 @@
+/* ===== SITE FOOTER ===== */
+.site-footer {
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 80px;
+}
+
+.site-footer__inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+/* Top border */
+.site-footer__border {
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.12) 20%,
+            rgba(255, 255, 255, 0.12) 80%,
+            transparent 100%);
+    margin-bottom: 60px;
+}
+
+/* ===== CONTENT LAYOUT ===== */
+.site-footer__content {
+    display: flex;
+    gap: 80px;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 40px;
+}
+
+/* ===== BRAND ===== */
+.site-footer__brand {
+    flex-shrink: 0;
+    min-width: 200px;
+}
+
+.site-footer__brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.site-footer__brand-logo img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+.site-footer__brand-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: -0.3px;
+}
+
+.site-footer__copyright {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.site-footer__credit {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.3);
+    line-height: 1.5;
+}
+
+/* ===== LINK COLUMNS ===== */
+.site-footer__columns {
+    display: flex;
+    gap: 60px;
+    flex: 1;
+}
+
+.site-footer__column {
+    min-width: 0;
+}
+
+.site-footer__column-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+.site-footer__column-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.site-footer__column-list a {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+}
+
+.site-footer__column-list a:hover {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== WORDMARK ===== */
+.site-footer__wordmark {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(80px, 12vw, 160px);
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.04);
+    white-space: nowrap;
+    letter-spacing: -4px;
+    line-height: 1;
+    padding: 40px 0 60px;
+    user-select: none;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+/* ===== BLEND ZONE — smooth transition from page bg to footer ===== */
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, var(--bg-color, #ffffff) 0%, #0a0a0a 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.site-footer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .site-footer__content {
+        flex-direction: column;
+        gap: 48px;
+    }
+
+    .site-footer__columns {
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+    .site-footer__column {
+        min-width: 120px;
+    }
+
+    .site-footer__inner {
+        padding: 0 24px;
+    }
+
+    .site-footer__wordmark {
+        font-size: clamp(48px, 10vw, 100px);
+        letter-spacing: -2px;
+        padding: 24px 0 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer__columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .site-footer__border {
+        margin-bottom: 40px;
+    }
+}
+
+/* ===== MOBILE: REMOVE CUSTOM CURSOR ===== */
+@media (max-width: 768px),
+(pointer: coarse) {
+    .custom-cursor {
+        display: none !important;
+    }
+
+    .global-spark {
+        display: none !important;
+    }
+
+    *,
+    a,
+    button,
+    input,
+    select,
+    textarea {
+        cursor: auto !important;
+    }
+}

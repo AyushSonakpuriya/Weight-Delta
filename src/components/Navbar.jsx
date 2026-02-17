@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import "./Navbar.css";
-
-
 
 export default function Navbar({ session }) {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
   const [isRotating, setIsRotating] = useState(false);
+  const navRef = useRef(null);
+  const highlightRef = useRef(null);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -21,6 +21,28 @@ export default function Navbar({ session }) {
     setIsRotating(true);
   };
 
+  const handleItemEnter = useCallback((e) => {
+    const target = e.currentTarget;
+    const nav = navRef.current;
+    const highlight = highlightRef.current;
+    if (!nav || !highlight) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+
+    highlight.style.width = `${targetRect.width}px`;
+    highlight.style.height = `${targetRect.height}px`;
+    highlight.style.left = `${targetRect.left - navRect.left}px`;
+    highlight.style.top = `${targetRect.top - navRect.top}px`;
+    highlight.style.opacity = '1';
+  }, []);
+
+  const handleNavLeave = useCallback(() => {
+    const highlight = highlightRef.current;
+    if (!highlight) return;
+    highlight.style.opacity = '0';
+  }, []);
+
   return (
     <header className="navbar-wrapper">
       <div
@@ -30,14 +52,16 @@ export default function Navbar({ session }) {
       >
         <img src="/weighing scale.png" alt="Weight Delta" />
       </div>
-      <nav className="navbar">
-        <NavLink to="/" end>
+      <nav className="navbar" ref={navRef} onMouseLeave={handleNavLeave}>
+        <div className="navbar__highlight" ref={highlightRef} />
+
+        <NavLink to="/" end onMouseEnter={handleItemEnter}>
           Home
         </NavLink>
-        <NavLink to="/calculator">
+        <NavLink to="/calculator" onMouseEnter={handleItemEnter}>
           Calculator
         </NavLink>
-        <NavLink to="/about">
+        <NavLink to="/about" onMouseEnter={handleItemEnter}>
           About
         </NavLink>
 
@@ -45,13 +69,13 @@ export default function Navbar({ session }) {
 
         {session ? (
           <>
-            <NavLink to="/history">History</NavLink>
-            <button onClick={handleLogout}>Logout</button>
+            <NavLink to="/history" onMouseEnter={handleItemEnter}>History</NavLink>
+            <button onClick={handleLogout} onMouseEnter={handleItemEnter}>Logout</button>
           </>
         ) : (
           <>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/signup">Sign Up</NavLink>
+            <NavLink to="/login" onMouseEnter={handleItemEnter}>Login</NavLink>
+            <NavLink to="/signup" onMouseEnter={handleItemEnter}>Sign Up</NavLink>
           </>
         )}
 
@@ -59,6 +83,7 @@ export default function Navbar({ session }) {
           onClick={toggleTheme}
           className="theme-toggle"
           aria-label="Toggle Dark Mode"
+          onMouseEnter={handleItemEnter}
         >
           {theme === 'dark' ? (
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

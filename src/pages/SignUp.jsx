@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { Link } from "react-router-dom";
 import MagnetButton from "../components/MagnetButton";
+import "../Login.css";
 
 function SignUp() {
     const [email, setEmail] = useState("");
@@ -57,7 +58,7 @@ function SignUp() {
     };
 
     return (
-        <div style={{
+        <div className="auth-page" style={{
             flex: 1,
             display: 'flex',
             alignItems: 'center',
