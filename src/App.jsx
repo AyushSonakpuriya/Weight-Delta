@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import History from './pages/History';
 import { supabase } from './lib/supabase';
+import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
 // Wrapper component to access location
@@ -120,7 +121,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppContent session={session} />
+      <ThemeProvider>
+        <AppContent session={session} />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

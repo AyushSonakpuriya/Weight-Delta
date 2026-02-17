@@ -4,6 +4,7 @@
 
 .main {
   min-height: calc(100vh - var(--navbar-height, 64px));
+  padding-top: calc(var(--navbar-height, 64px) + 16px);
   display: flex;
   flex-direction: column;
 }

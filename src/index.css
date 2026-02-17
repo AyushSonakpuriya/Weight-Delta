@@ -20,6 +20,27 @@
   --section-padding: 80px;
   --container-max-width: 1200px;
   --container-padding: 48px;
+
+  /* Default (Light) Theme Background */
+  --bg-color: var(--color-white);
+  --text-color: var(--color-gray-text);
+  --dot-color: #c8c8c8;
+}
+
+.dark {
+  --color-white: #1a1a1a;
+  --color-black: #ffffff;
+  --color-gray-light: #2a2a2a;
+  --color-gray-medium: #444444;
+  --color-gray-dark: #aaaaaa;
+  --color-gray-text: #e0e0e0;
+
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --dot-color: #333333;
+
+  --cursor-color: rgba(255, 255, 255, 0.8);
+  --spark-glow: rgba(255, 255, 255, 0.6);
 }
 
 html {
@@ -28,10 +49,10 @@ html {
 
 body {
   font-family: var(--font-family);
-  background-color: var(--color-white);
-  background-image: radial-gradient(circle, #c8c8c8 1px, transparent 1px);
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
   background-size: 24px 24px;
-  color: var(--color-gray-text);
+  color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -114,12 +135,13 @@ textarea {
   height: 18px;
   border-radius: 50%;
 
-  background: rgba(26, 26, 26, 0.7);
+  background: var(--cursor-color, rgba(26, 26, 26, 0.7));
 
   pointer-events: none;
   z-index: 9999;
 
   transform: translate(-50%, -50%);
+  transition: background 0.3s;
 }
 
 /* ===== GLOBAL CLICK SPARK EFFECT ===== */
@@ -128,11 +150,11 @@ textarea {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #1a1a1a;
+  background: var(--cursor-color, #1a1a1a);
   pointer-events: none;
   z-index: 9998;
   animation: global-spark-burst 0.5s ease-out forwards;
-  box-shadow: 0 0 6px 2px rgba(26, 26, 26, 0.6);
+  box-shadow: 0 0 6px 2px var(--spark-glow, rgba(26, 26, 26, 0.6));
 }
 
 @keyframes global-spark-burst {
