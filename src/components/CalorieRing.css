@@ -1,0 +1,256 @@
+/* ===== CALORIE RING CARD ===== */
+.calorie-ring {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calorie-ring__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.calorie-ring__title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.3px;
+}
+
+.calorie-ring__dots {
+    display: flex;
+    gap: 4px;
+}
+
+.calorie-ring__dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Chart Container */
+.calorie-ring__chart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calorie-ring__progress {
+    transition: stroke-dashoffset 0.4s ease;
+}
+
+.calorie-ring__value {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.calorie-ring__number {
+    font-size: 40px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.calorie-ring__label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* ----- Descriptive Summary ----- */
+.calorie-ring__summary {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.calorie-ring__desc {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.6;
+}
+
+.calorie-ring__desc strong {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+}
+
+/* ----- Expand Button ----- */
+.calorie-ring__expand-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.calorie-ring__expand-btn:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.calorie-ring__expand-icon {
+    display: inline-block;
+    font-size: 14px;
+    transition: transform 0.2s;
+    transform: rotate(-90deg);
+}
+
+.calorie-ring__expand-icon.open {
+    transform: rotate(90deg);
+}
+
+/* ----- Breakdown Panel ----- */
+.calorie-ring__breakdown {
+    width: 100%;
+    margin-top: 12px;
+    padding: 16px;
+    background: #252525;
+    border-radius: 10px;
+    border: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.calorie-ring__breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calorie-ring__breakdown-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.calorie-ring__breakdown-value {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.calorie-ring__breakdown-value--bold {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.calorie-ring__breakdown-note {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid #333;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    line-height: 1.6;
+}
+
+/* ----- Goal Feasibility Indicator ----- */
+.calorie-ring__feasibility {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 6px 0;
+}
+
+.calorie-ring__feasibility-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.calorie-ring__feasibility--comfortable .calorie-ring__feasibility-dot {
+    background: #4ade80;
+}
+
+.calorie-ring__feasibility--aggressive .calorie-ring__feasibility-dot {
+    background: #fbbf24;
+}
+
+.calorie-ring__feasibility--not-recommended .calorie-ring__feasibility-dot {
+    background: #f87171;
+}
+
+.calorie-ring__feasibility-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.calorie-ring__feasibility-rate {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ----- Reassurance Micro-Fact ----- */
+.calorie-ring__reassurance {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #222;
+    border-radius: 8px;
+    border-left: 3px solid #444;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* ----- Reference Images Panel ----- */
+.calorie-ring__reference {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px;
+    background: #252525;
+    border-radius: 10px;
+    border: 1px solid #2a2a2a;
+}
+
+.calorie-ring__reference-note {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    margin-bottom: 10px;
+    text-align: center;
+    font-style: italic;
+}
+
+.calorie-ring__reference-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.calorie-ring__reference-img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid #333;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.calorie-ring__reference-img:hover {
+    opacity: 1;
+}

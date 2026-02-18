@@ -1,0 +1,199 @@
+/* ===== BODY VISUALIZATION CARD ===== */
+.body-viz {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Duration Buttons */
+.body-viz__duration {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #333;
+    background: #1a1a1a;
+}
+
+.body-viz__dur-btn {
+    padding: 7px 16px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.body-viz__dur-btn.active {
+    background: #333;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Weight Input Display */
+.body-viz__weight-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 4px;
+}
+
+.body-viz__weight-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.body-viz__weight-label svg {
+    opacity: 0.5;
+}
+
+.body-viz__weight-num-unit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.body-viz__weight-num {
+    width: 52px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: 1px solid #3a3a3a;
+    background: #2a2a2a;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.body-viz__weight-num::-webkit-inner-spin-button,
+.body-viz__weight-num::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.body-viz__weight-unit {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+}
+
+/* Figures Row */
+.body-viz__figures {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 24px;
+    min-height: 140px;
+}
+
+.body-viz__figure {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.body-viz__figure-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.body-viz__silhouette {
+    width: 60px;
+    height: 120px;
+    color: rgba(255, 255, 255, 0.2);
+    transition: transform 0.4s ease, color 0.3s ease;
+}
+
+.body-viz__arrow {
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 20px;
+}
+
+/* Weight Labels */
+.body-viz__weights {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.body-viz__weight {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s;
+}
+
+.body-viz__weight--loss {
+    color: rgba(120, 200, 140, 0.8);
+}
+
+.body-viz__weight--gain {
+    color: rgba(200, 160, 100, 0.8);
+}
+
+.body-viz__weight-arrow {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Badges */
+.body-viz__badges {
+    display: flex;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #2a2a2a;
+    width: 100%;
+    justify-content: center;
+}
+
+.body-viz__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 14px;
+    background: #252525;
+    border-radius: 10px;
+    border: 1px solid #2a2a2a;
+    min-width: 80px;
+}
+
+.body-viz__badge-icon {
+    font-size: 18px;
+}
+
+.body-viz__badge-text {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 500;
+}
+
+@media (max-width: 600px) {
+    .body-viz {
+        padding: 16px;
+    }
+
+    .body-viz__badges {
+        flex-wrap: wrap;
+    }
+}

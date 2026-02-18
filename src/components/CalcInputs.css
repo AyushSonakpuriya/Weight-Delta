@@ -1,0 +1,210 @@
+/* ===== CALC INPUTS CARD ===== */
+.calc-inputs {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ----- Section ----- */
+.calc-inputs__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ----- Label Row (label + number on same line) ----- */
+.calc-inputs__label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calc-inputs__label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.3px;
+}
+
+.calc-inputs__label svg {
+    opacity: 0.6;
+}
+
+/* ----- Number input ----- */
+.calc-inputs__num-unit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.calc-inputs__num {
+    width: 56px;
+    padding: 5px 8px;
+    border-radius: 8px;
+    border: 1px solid #3a3a3a;
+    background: #2a2a2a;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+}
+
+.calc-inputs__num::-webkit-inner-spin-button,
+.calc-inputs__num::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.calc-inputs__num:focus {
+    border-color: #666;
+}
+
+.calc-inputs__unit {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    font-weight: 500;
+}
+
+/* ----- Range Slider ----- */
+.calc-inputs__slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #333;
+    outline: none;
+    cursor: pointer;
+}
+
+.calc-inputs__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #444;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.15s ease;
+}
+
+.calc-inputs__slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.calc-inputs__slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #444;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ----- Segmented Controls ----- */
+.calc-inputs__segments {
+    display: flex;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #333;
+    background: #1a1a1a;
+}
+
+.calc-inputs__seg-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.calc-inputs__seg-btn.active {
+    background: #333;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.calc-inputs__seg-btn:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.seg-icon {
+    font-size: 15px;
+}
+
+.calc-inputs__segments--sm {
+    max-width: 280px;
+}
+
+.calc-inputs__segments--sm .calc-inputs__seg-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+/* ----- Auto-correction notice ----- */
+.calc-inputs__correction {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.15);
+    border-radius: 6px;
+    font-size: 11px;
+    color: rgba(251, 191, 36, 0.7);
+    line-height: 1.4;
+    animation: calc-fade-in 0.2s ease;
+}
+
+.calc-inputs__correction svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+    stroke: rgba(251, 191, 36, 0.7);
+}
+
+@keyframes calc-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 600px) {
+    .calc-inputs {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .calc-inputs__segments--sm {
+        max-width: 100%;
+    }
+}

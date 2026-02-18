@@ -1,0 +1,147 @@
+/* ===== MACRO CHART CARD ===== */
+.macro-chart {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.macro-chart__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.macro-chart__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.macro-chart__title svg {
+    opacity: 0.5;
+}
+
+.macro-chart__chevron {
+    font-size: 18px;
+    transition: transform 0.2s;
+    transform: rotate(-90deg);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.macro-chart__chevron.open {
+    transform: rotate(90deg);
+}
+
+/* Body */
+.macro-chart__body {
+    padding: 0 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.macro-chart__donut {
+    position: relative;
+}
+
+/* Legend */
+.macro-chart__legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.macro-chart__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.macro-chart__swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.macro-chart__item-label {
+    color: rgba(255, 255, 255, 0.6);
+    flex: 1;
+}
+
+.macro-chart__item-value {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    width: 36px;
+    text-align: right;
+}
+
+.macro-chart__item-grams {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    width: 40px;
+    text-align: right;
+}
+
+/* ----- Daily Macro Intake ----- */
+.macro-chart__daily {
+    width: 100%;
+    padding-top: 16px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.macro-chart__daily-title {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+}
+
+.macro-chart__daily-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+
+.macro-chart__daily-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 10px 6px;
+    background: #252525;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+}
+
+.macro-chart__daily-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.macro-chart__daily-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+}
+
+.macro-chart__daily-kcal {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.3);
+}
