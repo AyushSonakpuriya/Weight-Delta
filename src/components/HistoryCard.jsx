@@ -2,7 +2,7 @@ import { ArrowRight, Repeat2, TrendingUp, TrendingDown, Minus } from "lucide-rea
 import { useState, useMemo, memo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
-const HistoryCard = memo(function HistoryCard({ item }) {
+const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 92, b: 246 } }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const handleMouseEnter = useCallback(() => setIsFlipped(true), []);
@@ -38,6 +38,8 @@ const HistoryCard = memo(function HistoryCard({ item }) {
             ],
         };
     }, [item.created_at, item.desired_weight, item.current_weight, item.daily_calories]);
+
+    const accentRgba = `rgba(${glowColor.r}, ${glowColor.g}, ${glowColor.b}`;
 
     return (
         <div
@@ -79,7 +81,7 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {GLOW_INDICES.map((i) => (
                             <div
-                                className="history-glow-orb"
+                                className="history-glow-orb-custom"
                                 key={i}
                                 style={{
                                     position: 'absolute',
@@ -87,6 +89,8 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                                     height: '50px',
                                     borderRadius: '140px',
                                     animationDelay: `${i * 0.3}s`,
+                                    background: `radial-gradient(circle, ${accentRgba}, 0.6) 0%, ${accentRgba}, 0) 70%)`,
+                                    boxShadow: `0 0 50px ${accentRgba}, 0.5)`,
                                 }}
                             />
                         ))}
@@ -103,7 +107,7 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                                     {trendLabel} · {formattedTime}
                                 </p>
                             </div>
-                            <Repeat2 style={{ width: '16px', height: '16px', color: '#f97316' }} />
+                            <Repeat2 style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                         </div>
                     </div>
                 </div>
@@ -131,7 +135,7 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                     <div style={{ flex: 1 }}>
                         <div style={{ marginBottom: '24px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <TrendIcon style={{ width: '20px', height: '20px', color: '#f97316' }} />
+                                <TrendIcon style={{ width: '20px', height: '20px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                                 <h3 style={{ fontWeight: 600, fontSize: '1.125rem', color: '#fff', letterSpacing: '-0.025em' }}>
                                     {formattedDate}
                                 </h3>
@@ -159,7 +163,7 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                                         willChange: 'transform, opacity',
                                     }}
                                 >
-                                    <ArrowRight style={{ width: '12px', height: '12px', color: '#f97316', flexShrink: 0 }} />
+                                    <ArrowRight style={{ width: '12px', height: '12px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})`, flexShrink: 0 }} />
                                     <span>{feature}</span>
                                 </div>
                             ))}
@@ -179,7 +183,7 @@ const HistoryCard = memo(function HistoryCard({ item }) {
                             <span style={{ fontWeight: 500, fontSize: '0.875rem', color: '#fff' }}>
                                 {item.daily_calories} kcal / day
                             </span>
-                            <ArrowRight style={{ width: '16px', height: '16px', color: '#f97316' }} />
+                            <ArrowRight style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                         </div>
                     </div>
                 </div>

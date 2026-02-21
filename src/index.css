@@ -288,6 +288,16 @@ textarea {
   animation-duration: 2s;
 }
 
+.history-glow-orb-custom {
+  animation: glow-scale 3s linear infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.group:hover .history-glow-orb-custom {
+  animation-duration: 2s;
+}
+
 @keyframes glow-scale {
   0% {
     transform: scale(2);
