@@ -54,7 +54,7 @@ export default function History() {
                 History
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '32px' }}>
+            <div className="history-grid">
                 {history.map((item) => (
                     <HistoryCard key={item.id} item={item} />
                 ))}

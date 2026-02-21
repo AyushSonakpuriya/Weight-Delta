@@ -71,9 +71,9 @@
   --color-gray-dark: #aaaaaa;
   --color-gray-text: #e0e0e0;
 
-  --bg-color: #121212;
+  --bg-color: #000000;
   --text-color: #e0e0e0;
-  --dot-color: #333333;
+  --dot-color: #222222;
 
   --cursor-color: rgba(255, 255, 255, 0.8);
   --spark-glow: rgba(255, 255, 255, 0.6);
@@ -275,6 +275,35 @@ textarea {
   }
 }
 
+/* ===== HISTORY RESPONSIVE GRID ===== */
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+.history-card {
+  height: 280px;
+}
+
+@media (min-width: 640px) {
+  .history-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .history-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .history-card {
+    height: 320px;
+  }
+}
+
 /* ===== HISTORY CARD GLOW ORB ===== */
 .history-glow-orb {
   background: radial-gradient(circle, rgba(255, 165, 0, 0.6) 0%, rgba(255, 165, 0, 0) 70%);
@@ -296,6 +325,32 @@ textarea {
 
 .group:hover .history-glow-orb-custom {
   animation-duration: 2s;
+}
+
+/* ===== MOBILE PERF: reduce glow orbs ===== */
+@media (max-width: 768px) {
+
+  .history-glow-orb:nth-child(n+5),
+  .history-glow-orb-custom:nth-child(n+5) {
+    display: none !important;
+  }
+
+  .history-glow-orb,
+  .history-glow-orb-custom {
+    will-change: auto;
+    animation-duration: 4s;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+
+  .history-glow-orb,
+  .history-glow-orb-custom {
+    animation: none !important;
+    opacity: 0.4;
+    transform: scale(1);
+  }
 }
 
 @keyframes glow-scale {

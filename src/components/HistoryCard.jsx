@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 92, b: 246 } }) {
     const [isFlipped, setIsFlipped] = useState(false);
 
+    // Desktop: hover to flip. Mobile: tap to toggle.
     const handleMouseEnter = useCallback(() => setIsFlipped(true), []);
     const handleMouseLeave = useCallback(() => setIsFlipped(false), []);
+    const handleClick = useCallback(() => setIsFlipped(prev => !prev), []);
 
     const { formattedDate, formattedTime, weightDiff, TrendIcon, trendLabel, features } = useMemo(() => {
         const date = new Date(item.created_at);
@@ -43,10 +45,11 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
 
     return (
         <div
-            className="group relative"
-            style={{ width: '100%', height: '320px', perspective: '2000px' }}
+            className="group relative history-card"
+            style={{ width: '100%', perspective: '2000px' }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
         >
             <div
                 style={{
