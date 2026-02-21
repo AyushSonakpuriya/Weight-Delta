@@ -112,6 +112,16 @@ export default function CalcInputs({ state, onChange }) {
         return Math.max(range.min, Math.min(range.max, state[key] || range.min));
     };
 
+    // Compute slider fill percentage for gradient background
+    const sliderFillStyle = (key) => {
+        const range = RANGES[key];
+        const val = sliderVal(key);
+        const pct = ((val - range.min) / (range.max - range.min)) * 100;
+        return {
+            background: `linear-gradient(90deg, #5865F2 0%, #3F4BD8 ${pct}%, #333 ${pct}%)`,
+        };
+    };
+
     return (
         <div className="calc-inputs">
             {/* ----- Gender ----- */}
@@ -125,7 +135,7 @@ export default function CalcInputs({ state, onChange }) {
                         <button
                             key={g.value}
                             type="button"
-                            className={`calc-inputs__seg-btn ${state.gender === g.value ? 'active' : ''}`}
+                            className={`calc-inputs__seg-btn gender-${g.value} ${state.gender === g.value ? 'active' : ''}`}
                             onClick={() => set('gender', g.value)}
                         >
                             <span className="seg-icon">{g.icon}</span> {g.label}
@@ -155,6 +165,7 @@ export default function CalcInputs({ state, onChange }) {
                     min={15} max={80}
                     value={sliderVal('age')}
                     onChange={e => handleSlider('age', e)}
+                    style={sliderFillStyle('age')}
                 />
             </div>
 
@@ -182,6 +193,7 @@ export default function CalcInputs({ state, onChange }) {
                     min={100} max={250}
                     value={sliderVal('height')}
                     onChange={e => handleSlider('height', e)}
+                    style={sliderFillStyle('height')}
                 />
             </div>
 
@@ -209,6 +221,7 @@ export default function CalcInputs({ state, onChange }) {
                     min={30} max={200}
                     value={sliderVal('currentWeight')}
                     onChange={e => handleSlider('currentWeight', e)}
+                    style={sliderFillStyle('currentWeight')}
                 />
             </div>
 
@@ -236,6 +249,7 @@ export default function CalcInputs({ state, onChange }) {
                     min={30} max={200}
                     value={sliderVal('targetWeight')}
                     onChange={e => handleSlider('targetWeight', e)}
+                    style={sliderFillStyle('targetWeight')}
                 />
 
                 {/* Auto-correction notice */}

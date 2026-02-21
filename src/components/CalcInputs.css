@@ -66,7 +66,8 @@
 }
 
 .calc-inputs__num:focus {
-    border-color: #666;
+    border-color: #5865F2;
+    box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
 }
 
 .calc-inputs__unit {
@@ -75,7 +76,7 @@
     font-weight: 500;
 }
 
-/* ----- Range Slider ----- */
+/* ===== RANGE SLIDER — Indigo gradient fill ===== */
 .calc-inputs__slider {
     -webkit-appearance: none;
     appearance: none;
@@ -94,14 +95,20 @@
     height: 20px;
     border-radius: 50%;
     background: #ffffff;
-    border: 2px solid #444;
+    border: 2px solid #5865F2;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-    transition: transform 0.15s ease;
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .calc-inputs__slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(88, 101, 242, 0.6);
+}
+
+.calc-inputs__slider:active::-webkit-slider-thumb {
     transform: scale(1.15);
+    box-shadow: 0 0 20px rgba(88, 101, 242, 0.7);
 }
 
 .calc-inputs__slider::-moz-range-thumb {
@@ -109,12 +116,18 @@
     height: 20px;
     border-radius: 50%;
     background: #ffffff;
-    border: 2px solid #444;
+    border: 2px solid #5865F2;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
 }
 
-/* ----- Segmented Controls ----- */
+.calc-inputs__slider::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    background: #333;
+}
+
+/* ===== GENDER SEGMENTED CONTROLS ===== */
 .calc-inputs__segments {
     display: flex;
     gap: 0;
@@ -128,12 +141,13 @@
     flex: 1;
     padding: 10px 16px;
     border: none;
+    border: 2px solid transparent;
     background: transparent;
     color: rgba(255, 255, 255, 0.5);
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 250ms ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,20 +155,66 @@
     white-space: nowrap;
 }
 
-.calc-inputs__seg-btn.active {
-    background: #333;
-    color: #ffffff;
+.calc-inputs__seg-btn:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.7);
+    transform: scale(1.03);
+}
+
+/* --- Gender-specific icon colors on active --- */
+.seg-icon {
+    font-size: 15px;
+    transition: color 250ms ease;
+}
+
+/* Male: Emerald */
+.calc-inputs__seg-btn.gender-male.active {
+    background: rgba(0, 180, 120, 0.15);
+    border-color: #00B478;
+    color: #fff;
     font-weight: 600;
 }
 
-.calc-inputs__seg-btn:hover:not(.active) {
-    color: rgba(255, 255, 255, 0.7);
+.calc-inputs__seg-btn.gender-male.active .seg-icon {
+    color: #00B478;
 }
 
-.seg-icon {
-    font-size: 15px;
+.calc-inputs__seg-btn.gender-male:hover:not(.active) {
+    box-shadow: 0 0 12px rgba(0, 180, 120, 0.15);
 }
 
+/* Female: Violet */
+.calc-inputs__seg-btn.gender-female.active {
+    background: rgba(168, 85, 247, 0.15);
+    border-color: #A855F7;
+    color: #fff;
+    font-weight: 600;
+}
+
+.calc-inputs__seg-btn.gender-female.active .seg-icon {
+    color: #A855F7;
+}
+
+.calc-inputs__seg-btn.gender-female:hover:not(.active) {
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+}
+
+/* Other: Sky Blue */
+.calc-inputs__seg-btn.gender-other.active {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38BDF8;
+    color: #fff;
+    font-weight: 600;
+}
+
+.calc-inputs__seg-btn.gender-other.active .seg-icon {
+    color: #38BDF8;
+}
+
+.calc-inputs__seg-btn.gender-other:hover:not(.active) {
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+
+/* ===== DURATION BUTTONS (4/8/12 weeks) — Indigo ===== */
 .calc-inputs__segments--sm {
     max-width: 280px;
 }
@@ -162,6 +222,21 @@
 .calc-inputs__segments--sm .calc-inputs__seg-btn {
     padding: 8px 14px;
     font-size: 12px;
+    border: 2px solid transparent;
+}
+
+.calc-inputs__segments--sm .calc-inputs__seg-btn.active {
+    background: linear-gradient(135deg, #5865F2, #3F4BD8);
+    border-color: transparent;
+    color: #fff;
+    font-weight: 600;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+}
+
+.calc-inputs__segments--sm .calc-inputs__seg-btn:hover:not(.active) {
+    transform: translateY(-1px);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* ----- Auto-correction notice ----- */

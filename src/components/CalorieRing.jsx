@@ -25,7 +25,7 @@ export default function CalorieRing({ dailyCalories, computed, state }) {
 
     // Ring SVG params
     const size = 200;
-    const stroke = 14;
+    const stroke = 18;
     const radius = (size - stroke) / 2;
     const circumference = 2 * Math.PI * radius;
 
@@ -78,7 +78,7 @@ export default function CalorieRing({ dailyCalories, computed, state }) {
                     <circle
                         cx={size / 2} cy={size / 2} r={radius}
                         fill="none"
-                        stroke="#888"
+                        stroke="#4B5563"
                         strokeWidth={stroke}
                         strokeLinecap="round"
                         strokeDasharray={circumference}
@@ -96,9 +96,9 @@ export default function CalorieRing({ dailyCalories, computed, state }) {
             {/* Descriptive Summary */}
             <div className="calorie-ring__summary">
                 <p className="calorie-ring__desc">
-                    To {actionWord} <strong>{weightDiff} kg</strong> in <strong>{dur} weeks</strong>,
-                    eat approximately <strong>{formatted} cal/day</strong> — a
-                    daily {adjType} of <strong>{adjAmount} cal</strong> from maintenance.
+                    To {actionWord} <strong style={{ color: '#00C8FF' }}>{weightDiff} kg</strong> in <strong>{dur} weeks</strong>,
+                    eat approximately <strong style={{ color: '#5865F2' }}>{formatted} cal/day</strong> — a
+                    daily {adjType} of <strong style={{ color: '#00C8FF' }}>{adjAmount} cal</strong> from maintenance.
                 </p>
 
                 {/* Goal Feasibility Indicator */}

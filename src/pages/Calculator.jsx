@@ -123,21 +123,25 @@ function Calculator() {
                     {/* LEFT COLUMN */}
                     <div className="calc-page__left">
                         <div className="calc-page__left-top">
-                            {/* Input Card */}
-                            <CalcInputs state={state} onChange={setState} />
+                            <div style={{ '--stagger': 0 }}>
+                                {/* Input Card */}
+                                <CalcInputs state={state} onChange={setState} />
+                            </div>
 
                             {/* Body Visualization */}
-                            <BodyViz
-                                currentWeight={state.currentWeight}
-                                targetWeight={safeTargetWeight}
-                                duration={state.duration}
-                                gender={state.gender}
-                                onDurationChange={(d) => setState(prev => ({ ...prev, duration: d }))}
-                            />
+                            <div style={{ '--stagger': 1 }}>
+                                <BodyViz
+                                    currentWeight={state.currentWeight}
+                                    targetWeight={safeTargetWeight}
+                                    duration={state.duration}
+                                    gender={state.gender}
+                                    onDurationChange={(d) => setState(prev => ({ ...prev, duration: d }))}
+                                />
+                            </div>
                         </div>
 
                         {/* Motivational Footer */}
-                        <div className="calc-page__motivation">
+                        <div className="calc-page__motivation" style={{ '--stagger': 2 }}>
                             <p className="calc-page__quote">
                                 <em>Small steps, big changes.</em><br />
                                 <em>Keep pushing forward!</em>
@@ -145,7 +149,7 @@ function Calculator() {
                         </div>
 
                         {/* Height & Weight Reference */}
-                        <div className="calc-page__reference">
+                        <div className="calc-page__reference" style={{ '--stagger': 3 }}>
                             <span className="calc-page__reference-title">General reference range</span>
                             <div className="calc-page__reference-images">
                                 <a href="/Ideal height.jpg" target="_blank" rel="noopener noreferrer">
@@ -160,8 +164,12 @@ function Calculator() {
 
                     {/* RIGHT COLUMN */}
                     <div className="calc-page__right">
-                        <CalorieRing dailyCalories={computed.dailyTarget} computed={computed} state={displayState} />
-                        <MacroChart macros={computed.macros} />
+                        <div style={{ '--stagger': 4 }}>
+                            <CalorieRing dailyCalories={computed.dailyTarget} computed={computed} state={displayState} />
+                        </div>
+                        <div style={{ '--stagger': 5 }}>
+                            <MacroChart macros={computed.macros} />
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import './MacroChart.css';
 
 const COLORS = {
-    protein: '#666',
-    carbs: '#999',
-    fat: '#bbb',
+    protein: '#5865F2',
+    carbs: '#00C8FF',
+    fat: '#A855F7',
 };
 
 export default function MacroChart({ macros }) {
