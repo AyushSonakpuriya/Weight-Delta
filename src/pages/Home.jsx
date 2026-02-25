@@ -3,7 +3,7 @@ import './Home.css';
 import MagnetButton from '../components/MagnetButton';
 import SplitText from '../components/SplitText';
 import BlurText from '../components/BlurText';
-import { ShootingStars } from '../components/ui/shooting-stars';
+import LightPillar from '../components/LightPillar/LightPillar';
 
 function Home() {
     const navigate = useNavigate();
@@ -11,35 +11,20 @@ function Home() {
     return (
         <>
             <section className="hero section section--hero">
-                <div className="hero__stars-bg">
-                    {/* Static star field */}
-                    <div className="hero__radial-glow" />
-                    <div className="hero__static-stars" />
-
-                    {/* Shooting star layers */}
-                    <ShootingStars
-                        starColor="#9E00FF"
-                        trailColor="#2EB9DF"
-                        minSpeed={15}
-                        maxSpeed={35}
-                        minDelay={1000}
-                        maxDelay={3000}
-                    />
-                    <ShootingStars
-                        starColor="#FF0099"
-                        trailColor="#FFB800"
-                        minSpeed={10}
-                        maxSpeed={25}
-                        minDelay={2000}
-                        maxDelay={4000}
-                    />
-                    <ShootingStars
-                        starColor="#00FF9E"
-                        trailColor="#00B8FF"
-                        minSpeed={20}
-                        maxSpeed={40}
-                        minDelay={1500}
-                        maxDelay={3500}
+                <div className="hero__pillar-bg">
+                    <LightPillar
+                        topColor="#000000"
+                        bottomColor="#8485f6"
+                        intensity={1}
+                        rotationSpeed={0.3}
+                        glowAmount={0.002}
+                        pillarWidth={3}
+                        pillarHeight={0.4}
+                        noiseIntensity={0.5}
+                        pillarRotation={25}
+                        interactive={false}
+                        mixBlendMode="screen"
+                        quality="high"
                     />
                 </div>
 
