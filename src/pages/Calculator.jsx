@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { calcBMR, calcTDEE, calcDailyTarget, calcMacros, clampTargetWeight } from '../lib/calorieCalc';
+import { generateMotivationalQuote } from '../services/gemini';
 import CalcInputs from '../components/CalcInputs';
 import BodyViz from '../components/BodyViz';
 import CalorieRing from '../components/CalorieRing';
@@ -22,8 +23,12 @@ const SAVE_DEBOUNCE_MS = 2000;
 
 function Calculator() {
     const [state, setState] = useState(DEFAULT_STATE);
+    const location = useLocation();
     const saveTimerRef = useRef(null);
     const lastSavedRef = useRef(null);
+    const insightTimerRef = useRef(null);
+    const [aiInsight, setAiInsight] = useState('');
+    const [insightLoading, setInsightLoading] = useState(true);
 
     // Clamp target weight to safe weekly limits before computing
     const safeTargetWeight = useMemo(
@@ -103,6 +108,26 @@ function Calculator() {
         targetWeight: safeTargetWeight,
     }), [state, safeTargetWeight]);
 
+    // Fetch a fresh motivational quote on every page visit
+    useEffect(() => {
+        let cancelled = false;
+        setInsightLoading(true);
+        setAiInsight('');
+
+        (async () => {
+            try {
+                const quote = await generateMotivationalQuote();
+                if (!cancelled) setAiInsight(quote);
+            } catch {
+                if (!cancelled) setAiInsight('The distance between where you are and where you want to be is bridged by what you do next.');
+            } finally {
+                if (!cancelled) setInsightLoading(false);
+            }
+        })();
+
+        return () => { cancelled = true; };
+    }, [location.key]);
+
     return (
         <section className="calc-page section">
             <div className="container">
@@ -142,10 +167,16 @@ function Calculator() {
 
                         {/* Motivational Footer */}
                         <div className="calc-page__motivation" style={{ '--stagger': 2 }}>
-                            <p className="calc-page__quote">
-                                <em>Small steps, big changes.</em><br />
-                                <em>Keep pushing forward!</em>
-                            </p>
+                            {insightLoading ? (
+                                <div className="calc-page__insight-loading">
+                                    <div className="calc-page__insight-shimmer" />
+                                    <div className="calc-page__insight-shimmer calc-page__insight-shimmer--short" />
+                                </div>
+                            ) : (
+                                <p className="calc-page__quote">
+                                    {aiInsight || <em>Analyzing your data…</em>}
+                                </p>
+                            )}
                         </div>
 
                         {/* Height & Weight Reference */}
