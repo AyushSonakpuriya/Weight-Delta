@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { calcBMR, calcTDEE, calcDailyTarget, calcMacros, clampTargetWeight } from '../lib/calorieCalc';
 import { generateMotivationalQuote } from '../services/gemini';
+import useCalorieWorker from '../hooks/useCalorieWorker';
 import CalcInputs from '../components/CalcInputs';
 import BodyViz from '../components/BodyViz';
 import CalorieRing from '../components/CalorieRing';
@@ -21,39 +21,22 @@ const DEFAULT_STATE = {
 
 const SAVE_DEBOUNCE_MS = 2000;
 
+// Sync fallback functions passed to the worker hook
+const syncCalc = { calcBMR, calcTDEE, calcDailyTarget, calcMacros, clampTargetWeight };
+
 function Calculator() {
     const [state, setState] = useState(DEFAULT_STATE);
-    const location = useLocation();
     const saveTimerRef = useRef(null);
     const lastSavedRef = useRef(null);
     const insightTimerRef = useRef(null);
     const [aiInsight, setAiInsight] = useState('');
     const [insightLoading, setInsightLoading] = useState(true);
 
-    // Clamp target weight to safe weekly limits before computing
-    const safeTargetWeight = useMemo(
-        () => clampTargetWeight(state.currentWeight, state.targetWeight, state.duration),
-        [state.currentWeight, state.targetWeight, state.duration]
-    );
+    // Offload all calorie math to a Web Worker (rAF-throttled)
+    const computed = useCalorieWorker(state, syncCalc);
 
-    // All derived values — recomputed on every state change
-    const computed = useMemo(() => {
-        const bmr = calcBMR(state.gender, state.currentWeight, state.height, state.age);
-        const tdee = calcTDEE(bmr);
-        const { dailyTarget, dailyAdjustment } = calcDailyTarget(
-            tdee, state.currentWeight, safeTargetWeight, state.duration, state.gender
-        );
-        const macros = calcMacros(dailyTarget);
-        return {
-            bmr: Math.round(bmr),
-            tdee: Math.round(tdee),
-            dailyTarget,
-            dailyAdjustment,
-            macros,
-            isDeficit: safeTargetWeight < state.currentWeight,
-            safeTargetWeight,
-        };
-    }, [state, safeTargetWeight]);
+    // Derive safeTargetWeight from worker results
+    const safeTargetWeight = computed.safeTargetWeight;
 
     // Debounced auto-save to Supabase
     const saveToSupabase = useCallback(async (currentState, currentComputed) => {
@@ -108,7 +91,7 @@ function Calculator() {
         targetWeight: safeTargetWeight,
     }), [state, safeTargetWeight]);
 
-    // Fetch a fresh motivational quote on every page visit
+    // Fetch a fresh motivational quote once per page visit (mount only)
     useEffect(() => {
         let cancelled = false;
         setInsightLoading(true);
@@ -126,7 +109,7 @@ function Calculator() {
         })();
 
         return () => { cancelled = true; };
-    }, [location.key]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <section className="calc-page section">
@@ -183,11 +166,11 @@ function Calculator() {
                         <div className="calc-page__reference" style={{ '--stagger': 3 }}>
                             <span className="calc-page__reference-title">General reference range</span>
                             <div className="calc-page__reference-images">
-                                <a href="/Ideal height.jpg" target="_blank" rel="noopener noreferrer">
-                                    <img src="/Ideal height.jpg" alt="Height conversion reference" className="calc-page__reference-img" />
+                                <a href="/Ideal height.webp" target="_blank" rel="noopener noreferrer">
+                                    <img src="/Ideal height.webp" alt="Height conversion reference" className="calc-page__reference-img" width="280" height="200" loading="lazy" />
                                 </a>
-                                <a href="/Ideal weight.jpg" target="_blank" rel="noopener noreferrer">
-                                    <img src="/Ideal weight.jpg" alt="Ideal height and weight reference" className="calc-page__reference-img" />
+                                <a href="/Ideal weight.webp" target="_blank" rel="noopener noreferrer">
+                                    <img src="/Ideal weight.webp" alt="Ideal height and weight reference" className="calc-page__reference-img" width="280" height="200" loading="lazy" />
                                 </a>
                             </div>
                         </div>

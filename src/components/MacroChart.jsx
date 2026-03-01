@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import './MacroChart.css';
 
 const COLORS = {
@@ -7,7 +7,7 @@ const COLORS = {
     fat: '#A855F7',
 };
 
-export default function MacroChart({ macros }) {
+export default memo(function MacroChart({ macros }) {
     const [expanded, setExpanded] = useState(true);
     const { protein, carbs, fat } = macros || {
         protein: { pct: 34, grams: 0 },
@@ -122,4 +122,4 @@ export default function MacroChart({ macros }) {
             )}
         </div>
     );
-}
+});

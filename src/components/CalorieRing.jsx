@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import './CalorieRing.css';
 
 /**
@@ -18,7 +18,7 @@ function getGoalFeasibility(weeklyChange, dailyAdjustment) {
     return { label: 'Not recommended', level: 'not-recommended' };
 }
 
-export default function CalorieRing({ dailyCalories, computed, state }) {
+export default memo(function CalorieRing({ dailyCalories, computed, state }) {
     const [showBreakdown, setShowBreakdown] = useState(false);
     const cal = dailyCalories || 0;
     const formatted = cal.toLocaleString();
@@ -150,4 +150,4 @@ export default function CalorieRing({ dailyCalories, computed, state }) {
             )}
         </div>
     );
-}
+});

@@ -46,7 +46,7 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
     return (
         <div
             className="group relative history-card"
-            style={{ width: '100%', perspective: '2000px' }}
+            style={{ width: '100%', perspective: '2000px', transform: 'translateZ(0)' }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
@@ -110,7 +110,7 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
                                     {trendLabel} · {formattedTime}
                                 </p>
                             </div>
-                            <Repeat2 style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
+                            <Repeat2 width={16} height={16} style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
                     <div style={{ flex: 1 }}>
                         <div style={{ marginBottom: '24px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                                <TrendIcon style={{ width: '20px', height: '20px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
+                                <TrendIcon width={20} height={20} style={{ width: '20px', height: '20px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                                 <h3 style={{ fontWeight: 600, fontSize: '1.125rem', color: '#fff', letterSpacing: '-0.025em' }}>
                                     {formattedDate}
                                 </h3>
@@ -166,7 +166,7 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
                                         willChange: 'transform, opacity',
                                     }}
                                 >
-                                    <ArrowRight style={{ width: '12px', height: '12px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})`, flexShrink: 0 }} />
+                                    <ArrowRight width={12} height={12} style={{ width: '12px', height: '12px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})`, flexShrink: 0 }} />
                                     <span>{feature}</span>
                                 </div>
                             ))}
@@ -186,7 +186,7 @@ const HistoryCard = memo(function HistoryCard({ item, glowColor = { r: 139, g: 9
                             <span style={{ fontWeight: 500, fontSize: '0.875rem', color: '#fff' }}>
                                 {item.daily_calories} kcal / day
                             </span>
-                            <ArrowRight style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
+                            <ArrowRight width={16} height={16} style={{ width: '16px', height: '16px', color: `rgb(${glowColor.r}, ${glowColor.g}, ${glowColor.b})` }} />
                         </div>
                     </div>
                 </div>

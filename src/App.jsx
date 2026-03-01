@@ -1,66 +1,87 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense, memo } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Calculator from './pages/Calculator';
-import About from './pages/About';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import History from './pages/History';
 import { supabase } from './lib/supabase';
 import { ThemeProvider } from './context/ThemeContext';
 import './App.css';
 
+const Calculator = lazy(() => import('./pages/Calculator'));
+const About = lazy(() => import('./pages/About'));
+const Login = lazy(() => import('./pages/Login'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const History = lazy(() => import('./pages/History'));
+
 // Wrapper component to access location
-function AppContent({ session }) {
+const AppContent = memo(function AppContent({ session }) {
   return (
     <div className="app">
       <Navbar session={session} />
       <main className="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/calculator"
-            element={session ? <Calculator /> : <Navigate to="/login" replace />}
-          />
-          <Route path="/about" element={<About />} />
-          <Route
-            path="/login"
-            element={session ? <Navigate to="/calculator" replace /> : <Login />}
-          />
-          <Route
-            path="/signup"
-            element={session ? <Navigate to="/calculator" replace /> : <SignUp />}
-          />
-          <Route
-            path="/history"
-            element={session ? <History /> : <Navigate to="/login" replace />}
-          />
-        </Routes>
+        <Suspense fallback={
+          <div className="min-h-screen flex items-center justify-center">
+            Loading...
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/calculator"
+              element={session ? <Calculator /> : <Navigate to="/login" replace />}
+            />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/login"
+              element={session ? <Navigate to="/calculator" replace /> : <Login />}
+            />
+            <Route
+              path="/signup"
+              element={session ? <Navigate to="/calculator" replace /> : <SignUp />}
+            />
+            <Route
+              path="/history"
+              element={session ? <History /> : <Navigate to="/login" replace />}
+            />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );
-}
+});
 
 function App() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cursor = document.createElement("div");
-    cursor.className = "custom-cursor";
-    document.body.appendChild(cursor);
+    // Defer cursor creation to avoid blocking LCP
+    const init = () => {
+      const cursor = document.createElement("div");
+      cursor.className = "custom-cursor";
+      document.body.appendChild(cursor);
 
-    const moveCursor = (e) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
+      // Use transform instead of left/top to avoid layout recalc
+      const moveCursor = (e) => {
+        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      };
+
+      window.addEventListener("mousemove", moveCursor, { passive: true });
+
+      return () => {
+        window.removeEventListener("mousemove", moveCursor);
+        cursor.remove();
+      };
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    let cleanup;
+    const id = typeof requestIdleCallback !== 'undefined'
+      ? requestIdleCallback(() => { cleanup = init(); })
+      : setTimeout(() => { cleanup = init(); }, 100);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      cursor.remove();
+      if (typeof cancelIdleCallback !== 'undefined') cancelIdleCallback(id);
+      else clearTimeout(id);
+      cleanup?.();
     };
   }, []);
 

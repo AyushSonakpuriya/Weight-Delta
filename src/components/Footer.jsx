@@ -12,7 +12,7 @@ export default function Footer() {
                     {/* Brand column */}
                     <div className="site-footer__brand">
                         <div className="site-footer__brand-logo">
-                            <img src="/weighing scale.png" alt="Weight Delta" />
+                            <img src="/weighing scale.webp" alt="Weight Delta" width="32" height="32" />
                             <span className="site-footer__brand-name">Weight Delta</span>
                         </div>
                         <p className="site-footer__copyright">

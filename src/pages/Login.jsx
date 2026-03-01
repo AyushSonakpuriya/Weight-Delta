@@ -101,8 +101,11 @@ export default function Login() {
                     justifyContent: 'center'
                 }}>
                     <img
-                        src="/unnamed.gif"
+                        src="/unnamed.webp"
                         alt="Login illustration"
+                        width="480"
+                        height="480"
+                        loading="lazy"
                         style={{
                             maxWidth: '480px',
                             width: '100%',

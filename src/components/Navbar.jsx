@@ -48,7 +48,7 @@ export default function Navbar({ session }) {
         onClick={handleLogoClick}
         onAnimationEnd={() => setIsRotating(false)}
       >
-        <img src="/weighing scale.png" alt="Weight Delta" />
+        <img src="/weighing scale.webp" alt="Weight Delta" width="40" height="40" />
       </div>
       <nav className="navbar" ref={navRef} onMouseLeave={handleNavLeave}>
         <div className="navbar__highlight" ref={highlightRef} />

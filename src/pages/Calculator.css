@@ -32,8 +32,26 @@
 .calc-page__reference {
     position: relative;
     overflow: hidden;
-    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* Static glow layer revealed on hover via opacity */
+.calc-page .calc-inputs::before,
+.calc-page .body-viz::before,
+.calc-page .calorie-ring::before,
+.calc-page .macro-chart::before,
+.calc-page__motivation::before,
+.calc-page__reference::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
 }
 
 .calc-page .calc-inputs:hover,
@@ -43,7 +61,15 @@
 .calc-page__motivation:hover,
 .calc-page__reference:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.calc-page .calc-inputs:hover::before,
+.calc-page .body-viz:hover::before,
+.calc-page .calorie-ring:hover::before,
+.calc-page .macro-chart:hover::before,
+.calc-page__motivation:hover::before,
+.calc-page__reference:hover::before {
+    opacity: 1;
 }
 
 /* ===== GLARE EFFECT — light sweep on hover ===== */
@@ -56,7 +82,7 @@
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 60%;
     height: 100%;
     background: linear-gradient(105deg,
@@ -65,9 +91,11 @@
             rgba(255, 255, 255, 0.08) 50%,
             rgba(255, 255, 255, 0.04) 55%,
             transparent 70%);
-    transition: left 0.6s ease;
+    transform: translateX(-170%);
+    transition: transform 0.6s ease;
     pointer-events: none;
     z-index: 1;
+    will-change: transform;
 }
 
 .calc-page .calc-inputs:hover::after,
@@ -76,7 +104,7 @@
 .calc-page .macro-chart:hover::after,
 .calc-page__motivation:hover::after,
 .calc-page__reference:hover::after {
-    left: 120%;
+    transform: translateX(200%);
 }
 
 /* ===== STAGGERED CARD ENTRANCE ===== */
@@ -88,6 +116,7 @@
 .calc-page__reference {
     animation: calc-card-enter 500ms ease both;
     animation-delay: calc(var(--stagger, 0) * 120ms);
+    will-change: transform, opacity;
 }
 
 @keyframes calc-card-enter {
@@ -171,9 +200,18 @@
     height: 14px;
     width: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-    background-size: 200% 100%;
+    background: #2a2a2a;
+    position: relative;
+    overflow: hidden;
+}
+
+.calc-page__insight-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 25%, #3a3a3a 50%, transparent 75%);
     animation: insight-shimmer 1.5s ease-in-out infinite;
+    will-change: transform;
 }
 
 .calc-page__insight-shimmer--short {
@@ -182,11 +220,11 @@
 
 @keyframes insight-shimmer {
     0% {
-        background-position: 200% 0;
+        transform: translateX(-100%);
     }
 
     100% {
-        background-position: -200% 0;
+        transform: translateX(100%);
     }
 }
 

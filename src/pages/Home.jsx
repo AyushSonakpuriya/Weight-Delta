@@ -1,31 +1,45 @@
 import { useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import './Home.css';
 import MagnetButton from '../components/MagnetButton';
 import SplitText from '../components/SplitText';
 import BlurText from '../components/BlurText';
-import LightPillar from '../components/LightPillar/LightPillar';
+
+// Lazy-load LightPillar so Three.js (456KB) doesn't block initial paint / LCP
+const LightPillar = lazy(() => import('../components/LightPillar/LightPillar'));
 
 function Home() {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className="home-page">
             <section className="hero section section--hero">
                 <div className="hero__pillar-bg">
-                    <LightPillar
-                        topColor="#000000"
-                        bottomColor="#8485f6"
-                        intensity={1}
-                        rotationSpeed={0.3}
-                        glowAmount={0.002}
-                        pillarWidth={3}
-                        pillarHeight={0.4}
-                        noiseIntensity={0.5}
-                        pillarRotation={25}
-                        interactive={false}
-                        mixBlendMode="screen"
-                        quality="high"
-                    />
+                    <Suspense fallback={
+                        <div className="light-pillar-fallback" style={{
+                            background: 'linear-gradient(180deg, #000000 0%, #0a0015 30%, #1a0a30 60%, #0a0015 100%)',
+                            width: '100%',
+                            height: '100%',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                        }} />
+                    }>
+                        <LightPillar
+                            topColor="#000000"
+                            bottomColor="#8485f6"
+                            intensity={1}
+                            rotationSpeed={0.3}
+                            glowAmount={0.002}
+                            pillarWidth={3}
+                            pillarHeight={0.4}
+                            noiseIntensity={0.5}
+                            pillarRotation={25}
+                            interactive={false}
+                            mixBlendMode="screen"
+                            quality="high"
+                        />
+                    </Suspense>
                 </div>
 
                 <div className="container hero__container-overlay">
@@ -58,6 +72,9 @@ function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* Atmospheric glow that extends beyond hero into the grid */}
+            <div className="hero__glow-atmosphere" />
 
             <section className="features section">
                 <div className="container">
@@ -99,7 +116,7 @@ function Home() {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     );
 }
 

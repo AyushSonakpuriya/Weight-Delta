@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { clampValue, clampTargetWeight } from '../lib/calorieCalc';
 import './CalcInputs.css';
 
@@ -20,12 +20,17 @@ const RANGES = {
 
 const CORRECTION_HIDE_MS = 4000;
 
+const SLIDER_DEBOUNCE_MS = 100;
+
 export default function CalcInputs({ state, onChange }) {
     // Local draft strings for free typing — not clamped until blur
     const [drafts, setDrafts] = useState({});
+    // Local slider drafts for immediate visual feedback (no recalc until debounce)
+    const [sliderDrafts, setSliderDrafts] = useState({});
     // Auto-correction notice
     const [correction, setCorrection] = useState(null);
     const correctionTimer = useRef(null);
+    const sliderDebounceRef = useRef({});
 
     // Clear correction after timeout
     useEffect(() => {
@@ -45,14 +50,12 @@ export default function CalcInputs({ state, onChange }) {
         onChange({ ...state, [key]: val });
     };
 
-    // Slider: always commits immediately (already clamped by browser)
-    const handleSlider = (key, e) => {
-        const range = RANGES[key];
-        const val = range.parse(e.target.value);
-        setDrafts(prev => ({ ...prev, [key]: undefined })); // clear draft
+    // Slider: immediate visual feedback via sliderDrafts, debounced commit to parent
+    const commitSliderValue = useCallback((key, val) => {
+        setDrafts(prev => ({ ...prev, [key]: undefined }));
+        setSliderDrafts(prev => ({ ...prev, [key]: undefined }));
 
         if (key === 'targetWeight') {
-            // Clamp to safe weekly limits immediately for slider
             const safe = clampTargetWeight(state.currentWeight, val, state.duration);
             if (safe !== val) {
                 const diff = val < state.currentWeight ? 'loss' : 'gain';
@@ -63,7 +66,31 @@ export default function CalcInputs({ state, onChange }) {
         } else {
             set(key, val);
         }
+    }, [state.currentWeight, state.duration]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    const handleSlider = (key, e) => {
+        const range = RANGES[key];
+        const val = range.parse(e.target.value);
+
+        // Immediately update slider visual position
+        setSliderDrafts(prev => ({ ...prev, [key]: val }));
+
+        // Debounce the heavy recalculation
+        if (sliderDebounceRef.current[key]) {
+            clearTimeout(sliderDebounceRef.current[key]);
+        }
+        sliderDebounceRef.current[key] = setTimeout(() => {
+            commitSliderValue(key, val);
+        }, SLIDER_DEBOUNCE_MS);
     };
+
+    // Cleanup debounce timers on unmount
+    useEffect(() => {
+        const timers = sliderDebounceRef.current;
+        return () => {
+            Object.values(timers).forEach(clearTimeout);
+        };
+    }, []);
 
     // Number input: free typing — store as draft string, don't clamp
     const handleNumTyping = (key, e) => {
@@ -106,10 +133,11 @@ export default function CalcInputs({ state, onChange }) {
         return drafts[key] !== undefined ? drafts[key] : state[key];
     };
 
-    // Slider value: always from state (clamped range)
+    // Slider value: prefer local draft (for immediate responsiveness) or fall back to state
     const sliderVal = (key) => {
         const range = RANGES[key];
-        return Math.max(range.min, Math.min(range.max, state[key] || range.min));
+        const raw = sliderDrafts[key] !== undefined ? sliderDrafts[key] : state[key];
+        return Math.max(range.min, Math.min(range.max, raw || range.min));
     };
 
     // Compute slider fill percentage for gradient background

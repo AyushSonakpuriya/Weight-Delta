@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './BodyViz.css';
 
 const durationOptions = [4, 8, 12];
@@ -6,7 +7,7 @@ const durationOptions = [4, 8, 12];
 
 function MaleSilhouette({ scale = 1 }) {
     return (
-        <svg viewBox="0 0 60 120" className="body-viz__silhouette" style={{ transform: `scaleX(${scale})` }}>
+        <svg viewBox="0 0 60 120" width="60" height="120" className="body-viz__silhouette" style={{ transform: `scaleX(${scale})` }}>
             {/* Head */}
             <circle cx="30" cy="14" r="9" fill="currentColor" />
             {/* Neck */}
@@ -27,7 +28,7 @@ function MaleSilhouette({ scale = 1 }) {
 
 function FemaleSilhouette({ scale = 1 }) {
     return (
-        <svg viewBox="0 0 60 120" className="body-viz__silhouette" style={{ transform: `scaleX(${scale})` }}>
+        <svg viewBox="0 0 60 120" width="60" height="120" className="body-viz__silhouette" style={{ transform: `scaleX(${scale})` }}>
             {/* Head */}
             <circle cx="30" cy="12" r="9" fill="currentColor" />
             {/* Hair accent */}
@@ -50,7 +51,7 @@ function FemaleSilhouette({ scale = 1 }) {
     );
 }
 
-export default function BodyViz({ currentWeight, targetWeight, duration, onDurationChange, gender }) {
+export default memo(function BodyViz({ currentWeight, targetWeight, duration, onDurationChange, gender }) {
     const cw = parseFloat(currentWeight) || 70;
     const tw = parseFloat(targetWeight) || cw;
     const isLoss = tw < cw;
@@ -145,4 +146,4 @@ export default function BodyViz({ currentWeight, targetWeight, duration, onDurat
             </div>
         </div>
     );
-}
+});

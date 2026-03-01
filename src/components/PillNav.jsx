@@ -253,7 +253,7 @@ const PillNav = ({
                     }}
                     onKeyDown={(e) => e.key === 'Enter' && handleLogoClick(e)}
                 >
-                    <img src={logo} alt={logoAlt} ref={logoImgRef} />
+                    <img src={logo} alt={logoAlt} ref={logoImgRef} width="40" height="40" />
                 </div>
 
                 <div className="pill-nav-items desktop-only" ref={navItemsRef}>

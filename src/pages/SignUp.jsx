@@ -77,8 +77,11 @@ function SignUp() {
                     justifyContent: 'center'
                 }}>
                     <img
-                        src="/unnamed.gif"
+                        src="/unnamed.webp"
                         alt="Sign up illustration"
+                        width="480"
+                        height="480"
+                        loading="lazy"
                         style={{
                             maxWidth: '480px',
                             width: '100%',

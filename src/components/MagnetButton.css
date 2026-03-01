@@ -14,7 +14,7 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.15s ease-out, box-shadow 0.2s, background 0.2s;
+    transition: transform 0.15s ease-out, background 0.2s;
     -webkit-tap-highlight-color: transparent;
     overflow: hidden;
     will-change: transform;
@@ -37,17 +37,18 @@
 .magnet-button__glare {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 50%;
     height: 100%;
     background: linear-gradient(90deg,
             transparent 0%,
             rgba(255, 255, 255, 0.4) 50%,
             transparent 100%);
-    transform: skewX(-25deg);
+    transform: translateX(-200%) skewX(-25deg);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s;
+    will-change: transform, opacity;
 }
 
 .magnet-button.glare-enabled:hover .magnet-button__glare {
@@ -57,11 +58,11 @@
 
 @keyframes glare-sweep {
     0% {
-        left: -100%;
+        transform: translateX(-200%) skewX(-25deg);
     }
 
     100% {
-        left: 150%;
+        transform: translateX(300%) skewX(-25deg);
     }
 }
 
@@ -82,10 +83,10 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #fff;
+    background: radial-gradient(circle, #fff 40%, rgba(255, 255, 255, 0.8) 100%);
     pointer-events: none;
     animation: spark-burst 0.6s ease-out forwards;
-    box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+    will-change: transform, opacity;
 }
 
 @keyframes spark-burst {

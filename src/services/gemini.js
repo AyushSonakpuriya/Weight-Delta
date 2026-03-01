@@ -27,16 +27,21 @@ Rules:
 
 /**
  * Generate a fresh motivational quote.
+ * Appends a unique nonce to defeat any SDK/server-level caching.
  * @returns {Promise<string>} Plain text quote (1–2 sentences)
  */
 export async function generateMotivationalQuote() {
     try {
+        // Unique nonce ensures the API treats each request as distinct
+        const nonce = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        const freshPrompt = `${prompt}\n\n[Request ID: ${nonce} — ignore this line, it is for cache-busting only.]`;
+
         const response = await ai.models.generateContent({
             model: MODEL,
             contents: [
                 {
                     role: 'user',
-                    parts: [{ text: prompt }],
+                    parts: [{ text: freshPrompt }],
                 },
             ],
         });

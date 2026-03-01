@@ -112,6 +112,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -122,10 +123,12 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
@@ -207,8 +210,10 @@ textarea {
   pointer-events: none;
   z-index: 9999;
 
-  transform: translate(-50%, -50%);
-  transition: background 0.3s;
+  /* Use margin offset for centering; transform is set by JS */
+  margin-left: -9px;
+  margin-top: -9px;
+  will-change: transform;
 }
 
 /* ===== GLOBAL CLICK SPARK EFFECT ===== */
@@ -217,11 +222,11 @@ textarea {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--cursor-color, #1a1a1a);
+  background: radial-gradient(circle, var(--cursor-color, #1a1a1a) 40%, var(--spark-glow, rgba(26, 26, 26, 0.6)) 100%);
   pointer-events: none;
   z-index: 9998;
   animation: global-spark-burst 0.5s ease-out forwards;
-  box-shadow: 0 0 6px 2px var(--spark-glow, rgba(26, 26, 26, 0.6));
+  will-change: transform, opacity;
 }
 
 @keyframes global-spark-burst {
@@ -246,18 +251,19 @@ textarea {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 50%;
   height: 100%;
   background: linear-gradient(90deg,
       transparent 0%,
       rgba(255, 255, 255, 0.5) 50%,
       transparent 100%);
-  transform: skewX(-25deg);
+  transform: translateX(-200%) skewX(-25deg);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s;
   z-index: 1;
+  will-change: transform, opacity;
 }
 
 .glare-card:hover::before {
@@ -267,11 +273,11 @@ textarea {
 
 @keyframes card-glare-sweep {
   0% {
-    left: -100%;
+    transform: translateX(-200%) skewX(-25deg);
   }
 
   100% {
-    left: 150%;
+    transform: translateX(300%) skewX(-25deg);
   }
 }
 

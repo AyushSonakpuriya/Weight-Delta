@@ -98,17 +98,15 @@
     border: 2px solid #5865F2;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .calc-inputs__slider::-webkit-slider-thumb:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 16px rgba(88, 101, 242, 0.6);
 }
 
 .calc-inputs__slider:active::-webkit-slider-thumb {
     transform: scale(1.15);
-    box-shadow: 0 0 20px rgba(88, 101, 242, 0.7);
 }
 
 .calc-inputs__slider::-moz-range-thumb {
@@ -179,7 +177,7 @@
 }
 
 .calc-inputs__seg-btn.gender-male:hover:not(.active) {
-    box-shadow: 0 0 12px rgba(0, 180, 120, 0.15);
+    background: rgba(0, 180, 120, 0.08);
 }
 
 /* Female: Violet */
@@ -195,7 +193,7 @@
 }
 
 .calc-inputs__seg-btn.gender-female:hover:not(.active) {
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+    background: rgba(168, 85, 247, 0.08);
 }
 
 /* Other: Sky Blue */
@@ -211,7 +209,7 @@
 }
 
 .calc-inputs__seg-btn.gender-other:hover:not(.active) {
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    background: rgba(56, 189, 248, 0.08);
 }
 
 /* ===== DURATION BUTTONS (4/8/12 weeks) — Indigo ===== */
@@ -252,6 +250,7 @@
     color: rgba(251, 191, 36, 0.7);
     line-height: 1.4;
     animation: calc-fade-in 0.2s ease;
+    will-change: transform, opacity;
 }
 
 .calc-inputs__correction svg {
