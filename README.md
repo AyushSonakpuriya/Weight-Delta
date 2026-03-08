@@ -7,7 +7,7 @@ A calorie calculator web app built to help my parents, on their weight loss jour
 - **Calorie Calculator** - Calculate daily calorie targets based on your goals
 - **User Authentication** - Secure login/signup with Supabase 
 - **Calculation History** - Track your past calculations
-- **Responsive Design** - Works beautifully on desktop and mobile
+- **Responsive Design** - Works beautifully on desktop and mobile 
 - **Glassmorphism UI** - Modern, premium design with glass effects
 
 ## 🛠️ Tech Stack
